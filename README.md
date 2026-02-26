@@ -156,7 +156,7 @@ Skills update automatically when you update the plugin:
 
 ## Acknowledgments
 
-Development lifecycle skills (design-agent, plan-writer, plan-executor, subagent-engine, tdd-enforcer, systematic-debugger, worktree-manager, branch-finisher, verification-gate) were adapted from [Superpowers](https://github.com/obra/superpowers) by Jesse Vincent (MIT License).
+Development lifecycle was adapted from [Superpowers](https://github.com/obra/superpowers) by Jesse Vincent (MIT License).
 
 ## License
 
