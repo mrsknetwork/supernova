@@ -1,0 +1,27 @@
+{
+    "name": "supernova",
+    "displayName": "Supernova",
+    "description": "Supernova AI Dev Team Orchestrator and full-lifecycle agent workflows.",
+    "version": "1.0.0",
+    "author": {
+        "name": "Kamesh",
+        "url": "https://github.com/mrsknetwork/supernova"
+    },
+    "homepage": "https://github.com/mrsknetwork/supernova",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/mrsknetwork/supernova.git"
+    },
+    "license": "MIT",
+    "keywords": [
+        "orchestrator",
+        "multi-agent",
+        "dev-team",
+        "skills",
+        "commands",
+        "workflows"
+    ],
+    "skills": "./skills/",
+    "commands": "./commands/",
+    "hooks": "./hooks/hooks.json"
+}

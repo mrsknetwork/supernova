@@ -1,0 +1,17 @@
+# Handle line endings automatically
+* text=auto
+
+# Explicitly declare text files to always be LF on check-in
+*.md text
+*.json text
+*.yml text
+*.yaml text
+*.jsonl text
+*.txt text
+
+# Force binary files (if any ever added)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary

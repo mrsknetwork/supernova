@@ -1,0 +1,51 @@
+{
+  "hooks": [
+    {
+      "event": "SessionStart",
+      "matcher": "startup|resume|clear|compact",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "cat \"${CLAUDE_PLUGIN_ROOT}/hooks/session-start.md\"",
+          "async": false
+        }
+      ]
+    },
+    {
+      "event": "PostToolUse",
+      "matcher": "Write|Edit",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "echo '[Supernova Security] Scanning modified file for vulnerabilities...'"
+        },
+        {
+          "type": "command",
+          "command": "jq -r '.tool_input.file_path' | xargs -I {} sh -c 'grep -n \"password.*=.*\\\"\" {} 2>/dev/null && echo \"️  [Supernova] Potential hardcoded password detected in {}\" || true'"
+        },
+        {
+          "type": "command",
+          "command": "jq -r '.tool_input.file_path' | xargs -I {} sh -c 'grep -n \"api[_-]?key.*=.*\\\"\" {} 2>/dev/null && echo \"️  [Supernova] Potential hardcoded API key detected in {}\" || true'"
+        },
+        {
+          "type": "command",
+          "command": "jq -r '.tool_input.file_path' | xargs -I {} sh -c 'grep -n \"SELECT.*\\\\${\" {} 2>/dev/null && echo \" [Supernova] SQL injection risk detected in {}\" || true'"
+        },
+        {
+          "type": "command",
+          "command": "jq -r '.tool_input.file_path' | xargs -I {} sh -c 'grep -n \"eval\\\\|exec\\\\|system(\" {} 2>/dev/null && echo \" [Supernova] Dangerous function call detected in {}\" || true'"
+        }
+      ]
+    },
+    {
+      "event": "PostToolUse",
+      "matcher": "Bash",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "echo '[Supernova] Bash command executed - review for security implications'"
+        }
+      ]
+    }
+  ]
+}

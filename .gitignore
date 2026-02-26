@@ -1,0 +1,7 @@
+# Common temp files
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.bak
+
