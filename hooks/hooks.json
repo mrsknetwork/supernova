@@ -1,51 +1,96 @@
 {
+  "version": "2.0.0",
+  "description": "Unified security and safety hooks for Supernova",
   "hooks": [
     {
-      "event": "SessionStart",
-      "matcher": "startup|resume|clear|compact",
-      "hooks": [
-        {
-          "type": "command",
-          "command": "cat \"${CLAUDE_PLUGIN_ROOT}/hooks/session-start.md\"",
-          "async": false
-        }
-      ]
+      "id": "pre-write-security",
+      "event": "PreToolUse",
+      "matcher": "Write|Edit",
+      "action": "guard-agent:scan-file",
+      "priority": 1,
+      "enabled": true
     },
     {
+      "id": "pre-execute-security",
+      "event": "PreToolUse",
+      "matcher": "Bash",
+      "action": "guard-agent:scan-command",
+      "priority": 1,
+      "enabled": true
+    },
+    {
+      "id": "pre-delete-confirm",
+      "event": "PreToolUse",
+      "matcher": "Delete",
+      "action": "guard-agent:confirm-deletion",
+      "priority": 1,
+      "enabled": true
+    },
+    {
+      "id": "post-write-verify",
       "event": "PostToolUse",
       "matcher": "Write|Edit",
-      "hooks": [
-        {
-          "type": "command",
-          "command": "echo '[Supernova Security] Scanning modified file for vulnerabilities...'"
-        },
-        {
-          "type": "command",
-          "command": "jq -r '.tool_input.file_path' | xargs -I {} sh -c 'grep -n \"password.*=.*\\\"\" {} 2>/dev/null && echo \"️  [Supernova] Potential hardcoded password detected in {}\" || true'"
-        },
-        {
-          "type": "command",
-          "command": "jq -r '.tool_input.file_path' | xargs -I {} sh -c 'grep -n \"api[_-]?key.*=.*\\\"\" {} 2>/dev/null && echo \"️  [Supernova] Potential hardcoded API key detected in {}\" || true'"
-        },
-        {
-          "type": "command",
-          "command": "jq -r '.tool_input.file_path' | xargs -I {} sh -c 'grep -n \"SELECT.*\\\\${\" {} 2>/dev/null && echo \" [Supernova] SQL injection risk detected in {}\" || true'"
-        },
-        {
-          "type": "command",
-          "command": "jq -r '.tool_input.file_path' | xargs -I {} sh -c 'grep -n \"eval\\\\|exec\\\\|system(\" {} 2>/dev/null && echo \" [Supernova] Dangerous function call detected in {}\" || true'"
-        }
-      ]
+      "action": "guard-agent:verify-no-secrets",
+      "priority": 2,
+      "enabled": true
     },
     {
-      "event": "PostToolUse",
-      "matcher": "Bash",
-      "hooks": [
-        {
-          "type": "command",
-          "command": "echo '[Supernova] Bash command executed - review for security implications'"
-        }
+      "id": "session-start-context",
+      "event": "SessionStart",
+      "matcher": "startup|resume",
+      "action": "core-orchestrator:detect-mode",
+      "priority": 0,
+      "enabled": true
+    }
+  ],
+  "scanners": {
+    "secrets": {
+      "enabled": true,
+      "patterns": [
+        "sk-[a-zA-Z0-9]{48}",
+        "AKIA[0-9A-Z]{16}",
+        "ghp_[a-zA-Z0-9]{36}",
+        "xox[baprs]-[0-9a-zA-Z-]+",
+        "sk_live_[0-9a-zA-Z]{24}",
+        "sk_test_[0-9a-zA-Z]{24}",
+        "-----BEGIN [A-Z ]+ PRIVATE KEY-----",
+        "api[_-]?key[\"\\s]*[:=][\"\\s]*[a-zA-Z0-9]{16,}",
+        "password[\"\\s]*[:=][\"\\s]*[^\"\\s']{8,}"
+      ]
+    },
+    "injection": {
+      "enabled": true,
+      "patterns": [
+        "ignore previous instructions",
+        "ignore the above",
+        "DAN.*do anything now",
+        "STAN.*strive to avoid norms",
+        "developer mode.*ignore"
+      ]
+    },
+    "sql_injection": {
+      "enabled": true,
+      "patterns": [
+        "SELECT.*FROM.*WHERE.*\\$\\{",
+        "INSERT.*INTO.*VALUES.*\\$\\{",
+        "UPDATE.*SET.*\\$\\{",
+        "DELETE.*FROM.*WHERE.*\\$\\{"
+      ]
+    },
+    "dangerous_commands": {
+      "enabled": true,
+      "blocked": [
+        "rm -rf /",
+        "rm -rf /*",
+        "> /etc/passwd",
+        "eval\\(",
+        "exec\\(",
+        "os\\.system\\(f\""
+      ],
+      "warn": [
+        "chmod 777",
+        "chmod -R 777"
       ]
     }
-  ]
+  }
 }

@@ -1,0 +1,111 @@
+{
+  "version": "2.0.0",
+  "name": "supernova-simplified",
+  "description": "Simplified Supernova with tiered execution modes",
+  "default_mode": "auto",
+  "modes": {
+    "turbo": {
+      "max_files": 3,
+      "max_questions": 0,
+      "design_doc": false,
+      "subagents": false,
+      "security_scan": "light",
+      "review_level": "inline",
+      "estimated_tokens": "low",
+      "time_target": "5 minutes"
+    },
+    "standard": {
+      "max_files": 10,
+      "max_questions": 2,
+      "design_doc": "brief",
+      "subagents": true,
+      "security_scan": "full",
+      "review_level": "basic",
+      "estimated_tokens": "medium",
+      "time_target": "30 minutes"
+    },
+    "audit": {
+      "max_files": 100,
+      "max_questions": 10,
+      "design_doc": "full",
+      "subagents": true,
+      "multi_review": true,
+      "security_scan": "deep",
+      "review_level": "thorough",
+      "estimated_tokens": "high",
+      "time_target": "2 hours"
+    }
+  },
+  "mode_detection": {
+    "turbo_indicators": [
+      "fix", "typo", "rename", "color", "style",
+      "format", "lint", "comment", "log",
+      "bugfix", "quick", "simple", "minor"
+    ],
+    "audit_indicators": [
+      "auth", "security", "payment", "encrypt",
+      "architecture", "refactor", "migrate", "redesign",
+      "oauth", "database", "core", "critical"
+    ],
+    "file_thresholds": {
+      "turbo_max": 3,
+      "standard_max": 10
+    }
+  },
+  "security": {
+    "block_dangerous_commands": true,
+    "confirm_deletions": true,
+    "scan_secrets": true,
+    "llm_injection_detection": true,
+    "prompt_jailbreak_detection": true,
+    "block_eval_exec": true,
+    "scan_sql_injection": true,
+    "scan_path_traversal": true,
+    "secret_patterns": [
+      "api-key",
+      "apikey",
+      "private-key",
+      "privatekey",
+      "password",
+      "secret",
+      "token",
+      "credential"
+    ]
+  },
+  "optimization": {
+    "cache_context": true,
+    "share_context_across_agents": true,
+    "batch_file_reads": true,
+    "inline_small_tasks": true,
+    "skip_redundant_scans": true
+  },
+  "agents": {
+    "core_orchestrator": {
+      "enabled": true,
+      "priority": 0
+    },
+    "build_agent": {
+      "enabled": true,
+      "priority": 1
+    },
+    "guard_agent": {
+      "enabled": true,
+      "priority": 2,
+      "hooks": ["pre-write", "pre-execute", "pre-delete"]
+    },
+    "modify_agent": {
+      "enabled": true,
+      "priority": 3
+    },
+    "ship_agent": {
+      "enabled": true,
+      "priority": 4
+    }
+  },
+  "commands": {
+    "supernova": {
+      "description": "Main entry point with mode selection",
+      "subcommands": ["turbo", "standard", "audit", "review", "guard", "debug", "modify", "ship"]
+    }
+  }
+}

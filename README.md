@@ -66,11 +66,11 @@ Start a new session in your chosen platform and ask for something that should tr
 
 ## The Basic Workflow
 
-1. **think** (`/supernova:think`) - Activates before writing code. Refines rough ideas through questions, explores alternatives, presents design in sections for validation. Saves design document.
-2. **plan** (`/supernova:plan`) - Activates with approved design. Breaks work into bite-sized tasks (2-5 minutes each). Every task has exact file paths, complete code, verification steps.
-3. **build** (`/supernova:build`) - Activates with plan. Dispatches fresh subagent per task with two-stage review (spec compliance, then code quality). Enforces RED-GREEN-REFACTOR testing.
-4. **review** (`/supernova:review`) - Full team code review. Runs parallel review by systematic debugger, code review agent, and security agent.
-5. **ship** (`/supernova:ship`) - Activates when tasks complete. Verifies tests, presents options (merge/PR/keep/discard), cleans up worktree.
+1. **think** (`/think`) - Activates before writing code. Refines rough ideas through questions, explores alternatives, presents design in sections for validation. Saves design document.
+2. **plan** (`/plan`) - Activates with approved design. Breaks work into bite-sized tasks (2-5 minutes each). Every task has exact file paths, complete code, verification steps.
+3. **build** (`/build`) - Activates with plan. Dispatches fresh subagent per task with two-stage review (spec compliance, then code quality). Enforces RED-GREEN-REFACTOR testing.
+4. **review** (`/review`) - Full team code review. Runs parallel review by systematic debugger, code review agent, and security agent.
+5. **ship** (`/ship`) - Activates when tasks complete. Verifies tests, presents options (merge/PR/keep/discard), cleans up worktree.
 
 **The agent checks for relevant skills before any task.** Mandatory workflows, not suggestions.
 
@@ -80,16 +80,16 @@ Start a new session in your chosen platform and ask for something that should tr
 
 | Command | What it Does |
 |---------|-------------|
-| `/supernova:think` | Socratic design refinement - explore ideas before code |
-| `/supernova:plan` | Create bite-sized implementation plan with TDD steps |
-| `/supernova:build` | Build feature end-to-end with subagent execution |
-| `/supernova:review` | Full team code review (architecture + debug + security) |
-| `/supernova:ship` | Verify and finish - merge, PR, keep, or discard |
-| `/supernova:debug` | 4-phase systematic root cause investigation |
-| `/supernova:guard` | Deep security audit with CVE lookup |
-| `/supernova:research` | R&D and technology evaluation |
-| `/supernova:slop` | AI slop detection and cleanup |
-| `/supernova:document` | Create, edit, or manage technical/non-technical docs |
+| `/think` | Socratic design refinement - explore ideas before code |
+| `/plan` | Create bite-sized implementation plan with TDD steps |
+| `/build` | Build feature end-to-end with subagent execution |
+| `/review` | Full team code review (architecture + debug + security) |
+| `/ship` | Verify and finish - merge, PR, keep, or discard |
+| `/debug` | 4-phase systematic root cause investigation |
+| `/guard` | Deep security audit with CVE lookup |
+| `/research` | R&D and technology evaluation |
+| `/slop` | AI slop detection and cleanup |
+| `/document` | Create, edit, or manage technical/non-technical docs |
 
 ### The Dev Team (Agents)
 
