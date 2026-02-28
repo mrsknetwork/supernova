@@ -1,162 +1,111 @@
 # Supernova
 
-Supernova is a complete software development workflow and AI Dev Team Orchestrator for your coding agents, built on top of a set of composable "skills" and pipelines. From design to ship - code review, security auditing, TDD enforcement, and AI slop detection.
+**Unified Dev Team Orchestration.**
 
-## How it works
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Platform: Claude](https://img.shields.io/badge/Platform-Claude_Code-blue)](.claude-plugin/INSTALL.md)
+[![Platform: Cursor](https://img.shields.io/badge/Platform-Cursor-green)](.cursor-plugin/INSTALL.md)
+[![Platform: Antigravity](https://img.shields.io/badge/Platform-Antigravity-purple)](.antigravity/INSTALL.md)
+[![Platform: Codex](https://img.shields.io/badge/Platform-Codex-orange)](.codex/INSTALL.md)
+[![Platform: OpenCode](https://img.shields.io/badge/Platform-OpenCode-black)](.opencode/INSTALL.md)
 
-It starts from the moment you fire up your coding agent. As soon as it sees that you're building something, it *doesn't* just jump into trying to write code. Instead, it steps back and asks you what you're really trying to do through Socratic design refinement.
+Supernova is a software development workflow engine. It orchestrates a specialized Dev Team of skills and pipelines to transform requirements into verified, production-ready code.
 
-Once the design is approved, your agent puts together an implementation plan. It emphasizes true red/green TDD, YAGNI, and DRY.
+---
 
-Next up, it launches a *subagent-driven-development* process, having agents work through each engineering task, inspecting and reviewing their work. 
+## Key Features
 
-Finally, a specialized review team (including architecture, debugging, and security) audits the code before it is shipped.
+| Team Lead | Builder | Security | Maintenance |
+|:---:|:---:|:---:|:---:|
+| **Orchestrator** | **Builder** | **Guard** | **Modify** |
+| Socratic design refinement and intelligent routing. | Red/Green TDD implementation with subagents. | Real-time security scanning and LLM protections. | Safe deletions, renames, and bulk updates. |
 
-## Installation
+- **Unified Command:** Single entry point via `/nova`.
+- **Cross-Platform:** Native support for Claude Code, Cursor, Codex, and more.
+- **TDD Enforcement:** Mandatory verification gates for all code changes.
+- **Subagent SDLC:** Leverages agent-skills for complex multi-step delivery.
 
-**Note:** Installation differs by platform. Claude Code or Cursor have built-in plugin marketplaces.
+---
 
-### Claude Code (via Plugin Marketplace)
+## Compatibility Matrix
 
-In Claude Code, register the marketplace first:
+Supernova is designed to be platform-agnostic, providing optimized installation methods for leading AI interfaces.
 
+| Platform | Support Level | Primary Setup | Config Format |
+|----------|:-------------:|---------------|---------------|
+| **Claude Code** | Full | `.claude-plugin/` | `plugin.json` |
+| **Cursor** | Native | `.cursor-plugin/` | `plugin.json` |
+| **Antigravity** | Beta | `.antigravity/` | `SKILL.md` |
+| **Codex** | Managed | `.codex/` | `config.toml` |
+| **OpenCode** | Flexible | `.opencode/` | `.opencode.json` |
+
+---
+
+## Getting Started
+
+Supernova is installed as a set of **Agent Skills**. Choose your platform for detailed autonomous installation steps:
+
+1.  **[Claude Code Guide](.claude-plugin/INSTALL.md)**
+2.  **[Cursor Setup Guide](.cursor-plugin/INSTALL.md)**
+3.  **[Antigravity Guide](.antigravity/INSTALL.md)**
+4.  **[Codex Skill Setup](.codex/INSTALL.md)**
+5.  **[OpenCode Local Setup](.opencode/INSTALL.md)**
+
+### Quick Install (Manual)
 ```bash
-/plugin marketplace add mrsknetwork/supernova-marketplace
-```
-
-Then install the plugin from this marketplace:
-
-```bash
-/plugin install supernova@supernova-marketplace
-```
-
-### Cursor (via Plugin Marketplace)
-
-In Cursor Agent chat, install from marketplace:
-
-```text
-/plugin-add supernova
-```
-
-### Antigravity
-
-For instructions on adding Supernova to Google Antigravity, see the **[Antigravity Setup Guide](.antigravity/INSTALL.md)**.
-
-### OpenCode
-
-For instructions on loading Supernova's Dev Team into OpenCode (globally or locally), see the **[OpenCode Setup Guide](.opencode/INSTALL.md)**.
-
-### Codex
-
-For instructions on native skill discovery and symlinking in Codex, see the **[Codex Setup Guide](.codex/INSTALL.md)**.
-
-### Via Local Plugin
-
-```bash
-# Clone the plugin
 git clone https://github.com/mrsknetwork/supernova.git
-
-# Load in Claude Code
-claude --plugin-dir ./supernova
+# Follow platform-specific README in dot-directories
 ```
 
-### Verify Installation
+---
 
-Start a new session in your chosen platform. Because Claude Code does not yet support automatic `SessionStart` hooks, you must manually launch the orchestrator to build context if you want full team capabilities immediately.
+## Unified Commands
 
-You can trigger it by asking for something that should trigger a skill (for example, "help me plan this feature" or "let's debug this issue"). The agent will automatically invoke the relevant supernova skill. Alternatively, to initiate the core orchestration explicitly, use one of the `/nova` commands (e.g. `/nova`).
+All capabilities are accessible via the `/nova` prefix.
 
-## The Basic Workflow
-
-1. **orchestrate** (`/nova`) - Analyzes your request, detects scope (turbo/standard/audit), and routes to the right workflow automatically.
-2. **build** (`/nova build`) - Executes implementation with integrated TDD and review. Handles inline (turbo), single subagent (standard), or multi-agent (audit) execution.
-3. **guard** (`/nova guard`) - Comprehensive security scanning with LLM-specific protections. Runs automatically on file writes via hooks.
-4. **modify** (`/nova modify`) - Safe delete, rename, and bulk update operations with dry-run preview and rollback support.
-5. **ship** (`/nova ship`) - Verifies tests, commits, and finishes work via merge, PR, or cleanup.
-
-**The agent checks for relevant skills before any task.** Mandatory workflows, not suggestions.
-
-## What's Inside
-
-### Commands
-
-| Command | What it Does |
+| Command | Description |
 |---------|-------------|
-| `/nova` | Core orchestration - auto-detects mode and routes |
-| `/nova build` | Execute implementation with integrated TDD and review |
-| `/nova guard` | Security scanning with LLM-specific protections |
-| `/nova modify` | Safe codebase modifications with rollback |
-| `/nova ship` | Verify, commit, and finish - merge, PR, or cleanup |
-| `/nova review` | Full team code review (debug + quality + security) |
-| `/nova debug` | 4-phase systematic root cause investigation |
-| `/nova research` | R&D and technology evaluation |
-| `/document` | Create, edit, or manage technical/non-technical docs |
+| `/nova` | **Orchestrate:** Auto-detects scope and routes to best workflow. |
+| `/nova build` | **Build:** Executes implementation with TDD and review. |
+| `/nova guard` | **Guard:** Security scan and LLM-injection check. |
+| `/nova modify` | **Modify:** Safe codebase restructuring with rollbacks. |
+| `/nova ship` | **Ship:** Finalize verification and commit work. |
+| `/nova debug` | **Debug:** Systematic 4-phase root cause analysis. |
+| `/nova review` | **Review:** Comprehensive code quality and security audit. |
 
-### The Dev Team (Core Skills)
+---
 
-| Priority | Skill | Role | Replaces |
-|----------|-------|------|----------|
-| 0 | `orchestrator` | Analyzes scope, detects mode, routes to workflow | `context-agent`, `design-agent`, `plan-writer`, `architect-agent` |
-| 1 | `builder` | Executes with integrated TDD and review | `subagent-engine`, `tdd-enforcer`, `code-review-agent`, `verification-gate` |
-| 2 | `guard` | Security scanning with LLM protections | `security-agent` |
-| 3 | `modify` | Safe delete, rename, bulk update with rollback | (new capability) |
-| 4 | `ship` | Verify, commit, and finish work | `branch-finisher`, `worktree-manager` |
-
-#### Specialist Skills (still active)
+## Core Skills
 
 | Skill | Role |
 |-------|------|
-| `debugger` | 4-phase debugging + AI slop detection |
-| `docs` | Technical and non-technical documentation |
-| `research` | R&D, tech eval, POC design |
-| `search` | Live search, CVE lookup, package registry |
+| `orchestrator` | Core logic for design and routing. |
+| `builder` | Test-driven implementation and verification. |
+| `guard` | Security scanning and validation. |
+| `ship` | Commits, pull requests, and workspace cleanup. |
+| `debugger` | Systematic root cause investigation. |
 
-### Pipelines
+*Additional specialists: `docs`, `research`, `search`, `shadcn-ui`.*
 
-| Pipeline | Flow |
-|----------|------|
-| `default` | orchestrator -> builder -> guard -> ship |
-| `full-review` | orchestrator -> debugger -> builder (review) -> guard -> docs |
-| `quick-fix` | orchestrator (turbo) -> builder (inline) -> ship |
+---
+
+## Governance and Contributing
+
+We follow industry standards for open-source health and development.
+
+- **[Contributing Guidelines](.github/CONTRIBUTING.md)** - Naming conventions and PR workflows.
+- **[Security Policy](.github/SECURITY.md)** - Reporting vulnerabilities.
+- **[License](LICENSE)** - MIT Licensed.
+
+---
 
 ## Philosophy
 
-- **Test-Driven Development** - Write tests first, always
-- **Systematic over ad-hoc** - Process over guessing
-- **Complexity reduction** - Simplicity as primary goal
-- **Evidence over claims** - Verify before declaring success
+1.  **Red/Green TDD:** No code without a failing test first.
+2.  **Evidence over Claims:** Verify results before declaring success.
+3.  **Socratic Design:** Refine requirements before writing a single line.
+4.  **YAGNI & DRY:** Keep the codebase lean and maintainable.
 
-## Contributing
+---
 
-Skills and agents live directly in this repository. To contribute:
-
-1. Fork the repository
-2. Create a branch for your skill or agent
-3. Follow the `docs-agent` skill for creating and documenting new skills
-4. Submit a PR
-
-See `skills/docs-agent/SKILL.md` for the complete guide.
-
-## Updating
-
-### Via Local Plugin
-Skills and pipelines update automatically when you update the plugin repository:
-
-```bash
-cd supernova && git pull
-```
-
-### Via Plugin Marketplace
-Skills update automatically when you update the plugin:
-
-```bash
-/plugin update supernova
-```
-
-## License
-
-MIT License - see LICENSE file for details
-
-## Support
-
-- **Issues**: [GitHub Issues](https://github.com/mrsknetwork/supernova/issues)
+Copyright (c) 2026 Kamesh. MIT License.

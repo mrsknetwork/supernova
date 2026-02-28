@@ -25,7 +25,7 @@ Ensure the `name:` field in the frontmatter exactly matches the directory name.
 ```markdown
 ---
 name: <skill-name>
-description: "Brief, punchy description of the skill."
+description: "Brief description of the skill."
 ---
 ```
 
