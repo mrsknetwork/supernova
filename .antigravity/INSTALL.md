@@ -39,13 +39,13 @@ This makes Supernova available across all your codebases.
    **macOS / Linux:**
    ```bash
    mkdir -p ~/.agent/workflows
-   ln -s ~/.antigravity/supernova/commands ~/.agent/workflows/supernova
+   ln -s ~/.antigravity/supernova/commands ~/.agent/workflows/
    ```
 
    **Windows (PowerShell):**
    ```powershell
    New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.agent\workflows"
-   cmd /c mklink /J "$env:USERPROFILE\.agent\workflows\supernova" "$env:USERPROFILE\.antigravity\supernova\commands"
+   cmd /c mklink /J "$env:USERPROFILE\.agent\workflows\" "$env:USERPROFILE\.antigravity\supernova\commands"
    ```
 
 ### Project Installation (Codebase-Level)
@@ -61,7 +61,7 @@ This makes Supernova available only within a specific project. Your team automat
    ```bash
    mkdir -p .agent/skills .agent/workflows
    cp -r ./supernova-plugin/skills .agent/skills/supernova
-   cp -r ./supernova-plugin/commands .agent/workflows/supernova
+   cp -r ./supernova-plugin/commands .agent/workflows/
    ```
 
 ## Available Skills
