@@ -3,7 +3,7 @@ name: plan-writer
 description: "Use when you have a spec or requirements for a multi-step task, before touching code. Creates comprehensive implementation plans with bite-sized tasks assuming zero codebase context. Triggers - plan, write plan, implementation plan, break this down."
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   priority: "6"
 argument-hint: "[design-doc-or-spec]"
 disable-model-invocation: false
@@ -122,6 +122,13 @@ After saving the plan, offer execution choice:
 
 ---
 
+## Templates
+
+- **PRD format:** see `assets/PRD-TEMPLATE.md` for the standard PRD structure
+- **Task list schema:** see `assets/TASK-LIST-TEMPLATE.json` for the JSON task list format
+
+---
+
 ## Remember
 
 - Exact file paths always
@@ -129,3 +136,4 @@ After saving the plan, offer execution choice:
 - Exact commands with expected output
 - DRY, YAGNI, TDD, frequent commits
 - Reference relevant skills with `supernova:` prefix
+

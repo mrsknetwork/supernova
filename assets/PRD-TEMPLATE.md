@@ -77,9 +77,9 @@ Use this template for autonomous mode execution.
 ## Quality Gates
 
 All tasks must pass:
-- [ ] DebugAgent: Slop Score ≥ 7/10
-- [ ] CodeReviewAgent: Verdict = PASS
-- [ ] SecurityAgent: No Critical/High vulnerabilities
+- [ ] debugger: Slop Score ≥ 7/10
+- [ ] builder: Code Review Verdict = PASS
+- [ ] guard: No Critical/High vulnerabilities
 
 ---
 

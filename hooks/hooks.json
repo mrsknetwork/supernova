@@ -1,12 +1,12 @@
 {
-  "version": "2.0.0",
+  "version": "1.0.1",
   "description": "Unified security and safety hooks for Supernova",
   "hooks": [
     {
       "id": "pre-write-security",
       "event": "PreToolUse",
       "matcher": "Write|Edit",
-      "action": "guard-agent:scan-file",
+      "action": "guard:scan-file",
       "priority": 1,
       "enabled": true
     },
@@ -14,7 +14,7 @@
       "id": "pre-execute-security",
       "event": "PreToolUse",
       "matcher": "Bash",
-      "action": "guard-agent:scan-command",
+      "action": "guard:scan-command",
       "priority": 1,
       "enabled": true
     },
@@ -22,7 +22,7 @@
       "id": "pre-delete-confirm",
       "event": "PreToolUse",
       "matcher": "Delete",
-      "action": "guard-agent:confirm-deletion",
+      "action": "guard:confirm-deletion",
       "priority": 1,
       "enabled": true
     },
@@ -30,16 +30,8 @@
       "id": "post-write-verify",
       "event": "PostToolUse",
       "matcher": "Write|Edit",
-      "action": "guard-agent:verify-no-secrets",
+      "action": "guard:verify-no-secrets",
       "priority": 2,
-      "enabled": true
-    },
-    {
-      "id": "session-start-context",
-      "event": "SessionStart",
-      "matcher": "startup|resume",
-      "action": "core-orchestrator:detect-mode",
-      "priority": 0,
       "enabled": true
     }
   ],

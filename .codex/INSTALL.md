@@ -1,77 +1,143 @@
-# Installing Supernova for Codex
+# Installing Supernova for Codex CLI
 
-Enable Supernova skills in Codex via native skill discovery. Just clone the repository and create a symlink.
+## AI-Assisted Installation
 
-## Prerequisites
+> **For AI agents:** Follow these steps exactly to install Supernova for the user autonomously. No user interaction required until the verification step.
 
-- Git
+### Step 1 — Clone the repository
 
-## Installation
-
-There are two ways to install skills depending on your workflow: **Global (User-Level)** or **Project (Codebase-Level)**.
-
-### Global Installation (User-Level)
-This makes Supernova available across all your codebases everywhere on your machine.
-
-1. **Clone the Supernova repository:**
-   ```bash
-   git clone https://github.com/mrsknetwork/supernova.git ~/.codex/supernova
-   ```
-
-2. **Create the skills symlink:**
-   This allows Codex to automatically discover Supernova's orchestrated Dev Team skills.
-
-   **macOS / Linux:**
-   ```bash
-   mkdir -p ~/.agents/skills
-   ln -s ~/.codex/supernova/skills ~/.agents/skills/supernova
-   ```
-
-   **Windows (PowerShell):**
-   ```powershell
-   New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.agents\skills"
-   cmd /c mklink /J "$env:USERPROFILE\.agents\skills\supernova" "$env:USERPROFILE\.codex\supernova\skills"
-   ```
-
-3. **Restart Codex** (quit and relaunch the CLI) to discover the skills.
-
-### Project Installation (Codebase-Level)
-This makes Supernova available *only* within a specific codebase, making it ideal if your team wants to track these skills in source control.
-
-1. **Clone or copy the Supernova repository into your project:**
-   ```bash
-   git clone https://github.com/mrsknetwork/supernova.git ./supernova-plugin
-   ```
-
-2. **Create the Project skills folder:**
-   Codex automatically scans `.agents/skills` recursively from your current working directory up to the git root.
-   ```bash
-   mkdir -p .agents/skills
-   cp -r ./supernova-plugin/skills .agents/skills/supernova
-   ```
-
-3. **Restart Codex** when inside your project directory.
-
-## Verify
-
-You can verify the installation by checking the symlink directory:
 ```bash
-ls -la ~/.agents/skills/supernova
+git clone https://github.com/mrsknetwork/supernova.git ~/.codex/supernova
 ```
-You should see a symlink (or junction on Windows) pointing to your Supernova skills directory.
+
+### Step 2 — Create the skills symlink
+
+Codex discovers skills in `~/.agents/skills/` (user-level). Symlink the Supernova skills directory there.
+
+**macOS / Linux:**
+```bash
+mkdir -p ~/.agents/skills
+ln -sf ~/.codex/supernova/skills ~/.agents/skills/supernova
+```
+
+**Windows (PowerShell):**
+```powershell
+New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.agents\skills"
+cmd /c mklink /J "$env:USERPROFILE\.agents\skills\supernova" "$env:USERPROFILE\.codex\supernova\skills"
+```
+
+### Step 3 — Verify installation
+
+Confirm skills are accessible:
+```bash
+ls ~/.agents/skills/supernova/orchestrator/SKILL.md
+```
+
+If the file exists, installation is complete. Restart Codex to discover the new skills.
+
+### Step 4 — Verify in Codex
+
+Run `/skills` or type `$` in Codex to list available skills. You should see Supernova skills listed.
+
+---
+
+## Manual Installation
+
+### Option A — Project-Level (recommended for teams)
+
+Makes Supernova available only within a specific project. Your team gets these skills when they clone the repo.
+
+```bash
+# Clone into your project
+git clone https://github.com/mrsknetwork/supernova.git ./supernova-plugin
+
+# Copy skills into Codex's project-level discovery path
+mkdir -p .agents/skills
+cp -r ./supernova-plugin/skills .agents/skills/supernova
+```
+
+Codex scans `.agents/skills/` recursively from your working directory up to the repo root.
+
+### Option B — Using the skill installer
+
+From within Codex, use the built-in installer:
+```
+$skill-installer install supernova skills from ~/.codex/supernova/skills
+```
+
+---
+
+## Available Skills
+
+After installation, invoke skills with `$skill-name` or let Codex match them implicitly:
+
+| Skill | Description |
+|-------|-------------|
+| `orchestrator` | Entry point — analyzes scope, detects mode, routes workflow |
+| `builder` | Implementation with integrated TDD and review |
+| `guard` | Security scanning with LLM-specific protections |
+| `modify` | Safe delete, rename, bulk update with rollback |
+| `ship` | Verify, commit, and finish work |
+| `debugger` | 4-phase systematic debugging |
+| `docs` | Technical and non-technical documentation |
+| `research` | R&D and technology evaluation |
+| `search` | Live web search and CVE lookup |
+
+## What's Included
+
+The clone contains everything Supernova needs:
+
+| Directory | Purpose |
+|-----------|---------|
+| `skills/` | 13 agent skills (orchestrator, builder, guard, etc.) |
+| `commands/` | `/nova` unified command entry point |
+| `assets/` | PRD and task-list templates for plan-writer |
+| `hooks/` | Git hook configs for security scanning |
+| `.supernova/` | Runtime config (modes, security, optimization) |
+| `tests/` | Test suite (for contributors) |
+
+## Commands
+
+Invoke via skill prompt or `/nova` prefix:
+
+```
+$orchestrator               Auto-detect mode and route
+$builder                    Implementation with TDD
+$guard                      Security scan
+$debugger                   Systematic debugging
+/nova build | guard | debug | modify | ship | review | research
+```
+
+## Skill Configuration
+
+Disable individual skills via `~/.codex/config.toml`:
+
+```toml
+[[skills.config]]
+path = "~/.agents/skills/supernova/research/SKILL.md"
+enabled = false
+```
+
+Restart Codex after config changes.
 
 ## Updating
 
-To update the skills and pipelines automatically, simply pull the latest changes:
 ```bash
 cd ~/.codex/supernova && git pull
 ```
-Because of the symlink, the skills in Codex will update instantly.
+
+Symlinks ensure Codex picks up changes. Restart Codex to reload skills.
 
 ## Uninstalling
 
-To remove Supernova from Codex:
+**macOS / Linux:**
 ```bash
 rm ~/.agents/skills/supernova
+rm -rf ~/.codex/supernova
 ```
-Optionally delete the clone: `rm -rf ~/.codex/supernova`.
+
+**Windows:**
+```powershell
+Remove-Item "$env:USERPROFILE\.agents\skills\supernova" -Recurse
+Remove-Item "$env:USERPROFILE\.codex\supernova" -Recurse
+```

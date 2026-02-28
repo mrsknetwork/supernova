@@ -62,15 +62,17 @@ claude --plugin-dir ./supernova
 
 ### Verify Installation
 
-Start a new session in your chosen platform and ask for something that should trigger a skill (for example, "help me plan this feature" or "let's debug this issue"). The agent should automatically invoke the relevant supernova skill. Alternatively, use one of the `/supernova:*` commands.
+Start a new session in your chosen platform. Because Claude Code does not yet support automatic `SessionStart` hooks, you must manually launch the orchestrator to build context if you want full team capabilities immediately.
+
+You can trigger it by asking for something that should trigger a skill (for example, "help me plan this feature" or "let's debug this issue"). The agent will automatically invoke the relevant supernova skill. Alternatively, to initiate the core orchestration explicitly, use one of the `/nova` commands (e.g. `/nova`).
 
 ## The Basic Workflow
 
-1. **think** (`/think`) - Activates before writing code. Refines rough ideas through questions, explores alternatives, presents design in sections for validation. Saves design document.
-2. **plan** (`/plan`) - Activates with approved design. Breaks work into bite-sized tasks (2-5 minutes each). Every task has exact file paths, complete code, verification steps.
-3. **build** (`/build`) - Activates with plan. Dispatches fresh subagent per task with two-stage review (spec compliance, then code quality). Enforces RED-GREEN-REFACTOR testing.
-4. **review** (`/review`) - Full team code review. Runs parallel review by systematic debugger, code review agent, and security agent.
-5. **ship** (`/ship`) - Activates when tasks complete. Verifies tests, presents options (merge/PR/keep/discard), cleans up worktree.
+1. **orchestrate** (`/nova`) - Analyzes your request, detects scope (turbo/standard/audit), and routes to the right workflow automatically.
+2. **build** (`/nova build`) - Executes implementation with integrated TDD and review. Handles inline (turbo), single subagent (standard), or multi-agent (audit) execution.
+3. **guard** (`/nova guard`) - Comprehensive security scanning with LLM-specific protections. Runs automatically on file writes via hooks.
+4. **modify** (`/nova modify`) - Safe delete, rename, and bulk update operations with dry-run preview and rollback support.
+5. **ship** (`/nova ship`) - Verifies tests, commits, and finishes work via merge, PR, or cleanup.
 
 **The agent checks for relevant skills before any task.** Mandatory workflows, not suggestions.
 
@@ -80,45 +82,42 @@ Start a new session in your chosen platform and ask for something that should tr
 
 | Command | What it Does |
 |---------|-------------|
-| `/think` | Socratic design refinement - explore ideas before code |
-| `/plan` | Create bite-sized implementation plan with TDD steps |
-| `/build` | Build feature end-to-end with subagent execution |
-| `/review` | Full team code review (architecture + debug + security) |
-| `/ship` | Verify and finish - merge, PR, keep, or discard |
-| `/debug` | 4-phase systematic root cause investigation |
-| `/guard` | Deep security audit with CVE lookup |
-| `/research` | R&D and technology evaluation |
-| `/slop` | AI slop detection and cleanup |
+| `/nova` | Core orchestration - auto-detects mode and routes |
+| `/nova build` | Execute implementation with integrated TDD and review |
+| `/nova guard` | Security scanning with LLM-specific protections |
+| `/nova modify` | Safe codebase modifications with rollback |
+| `/nova ship` | Verify, commit, and finish - merge, PR, or cleanup |
+| `/nova review` | Full team code review (debug + quality + security) |
+| `/nova debug` | 4-phase systematic root cause investigation |
+| `/nova research` | R&D and technology evaluation |
 | `/document` | Create, edit, or manage technical/non-technical docs |
 
-### The Dev Team (Agents)
+### The Dev Team (Core Skills)
 
-| Priority | Agent | Role |
-|----------|-------|------|
-| 0 | `context-agent` | Project context and scope verification |
-| 0.5 | `design-agent` | Socratic design refinement |
-| 1 | `architect-agent` | System design and patterns |
-| 2 | `systematic-debugger` | 4-phase debugging + AI slop detection |
-| 3 | `code-review-agent` | Quality gating (SOLID/DRY) |
-| 4 | `security-agent` | OWASP review and CVE scanning |
-| 5 | `docs-agent` | Technical & Non-Technical Documentation |
-| 6 | `plan-writer` | Implementation planning |
-| 7 | `subagent-engine` | Subagent-driven execution |
-| 8 | `worktree-manager` | Git worktree isolation |
-| 9 | `branch-finisher` | Branch completion workflow |
+| Priority | Skill | Role | Replaces |
+|----------|-------|------|----------|
+| 0 | `orchestrator` | Analyzes scope, detects mode, routes to workflow | `context-agent`, `design-agent`, `plan-writer`, `architect-agent` |
+| 1 | `builder` | Executes with integrated TDD and review | `subagent-engine`, `tdd-enforcer`, `code-review-agent`, `verification-gate` |
+| 2 | `guard` | Security scanning with LLM protections | `security-agent` |
+| 3 | `modify` | Safe delete, rename, bulk update with rollback | (new capability) |
+| 4 | `ship` | Verify, commit, and finish work | `branch-finisher`, `worktree-manager` |
 
-*(Plus cross-cutting agents like `verification-gate`, `tdd-enforcer`, `research-agent`, and `web-search-agent`)*
+#### Specialist Skills (still active)
+
+| Skill | Role |
+|-------|------|
+| `debugger` | 4-phase debugging + AI slop detection |
+| `docs` | Technical and non-technical documentation |
+| `research` | R&D, tech eval, POC design |
+| `search` | Live search, CVE lookup, package registry |
 
 ### Pipelines
 
-| Pipeline | Agents |
-|----------|--------|
-| `full-review` | context → architect → systematic-debugger → code-review → security → docs-agent |
-| `build-feature` | context → design → plan → worktree → subagent-engine → branch-finisher |
-| `tdd-session` | context → worktree → tdd-enforcer → verification-gate → branch-finisher |
-| `full-lifecycle` | context → design → plan → worktree → subagent-engine → [debug + code-review + security] → docs-agent → branch-finisher |
-
-*(See `skills/master-agent/references/PIPELINES.md` for full list).*
+| Pipeline | Flow |
+|----------|------|
+| `default` | orchestrator -> builder -> guard -> ship |
+| `full-review` | orchestrator -> debugger -> builder (review) -> guard -> docs |
+| `quick-fix` | orchestrator (turbo) -> builder (inline) -> ship |
 
 ## Philosophy
 
@@ -154,14 +153,10 @@ Skills update automatically when you update the plugin:
 /plugin update supernova
 ```
 
-## Acknowledgments
-
-Development lifecycle was adapted from [Superpowers](https://github.com/obra/superpowers) by Jesse Vincent (MIT License).
-
 ## License
 
 MIT License - see LICENSE file for details
 
 ## Support
 
-- **Issues**: https://github.com/mrsknetwork/supernova/issues
+- **Issues**: [GitHub Issues](https://github.com/mrsknetwork/supernova/issues)

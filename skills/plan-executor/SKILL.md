@@ -3,7 +3,7 @@ name: plan-executor
 description: "Use when you have a written implementation plan to execute in a separate session with review checkpoints. Triggers - execute plan, run plan, implement plan."
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   priority: "7"
 argument-hint: "[plan-file-path]"
 disable-model-invocation: false
@@ -59,8 +59,8 @@ Based on feedback:
 ### Step 5: Complete Development
 
 After all tasks complete and verified:
-- Announce: "I'm using the branch-finisher skill to complete this work."
-- **REQUIRED SUB-SKILL:** Use `supernova:branch-finisher`
+- Announce: "I'm using the ship skill to complete this work."
+- **REQUIRED SUB-SKILL:** Use `supernova:ship`
 - Follow that skill to verify tests, present options, execute choice
 
 ---
@@ -102,6 +102,5 @@ After all tasks complete and verified:
 ## Integration
 
 **Required workflow skills:**
-- **supernova:worktree-manager** - REQUIRED: Set up isolated workspace before starting
+- **supernova:ship** - REQUIRED: Set up isolated workspace and complete development
 - **supernova:plan-writer** - Creates the plan this skill executes
-- **supernova:branch-finisher** - Complete development after all tasks

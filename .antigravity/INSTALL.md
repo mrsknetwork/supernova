@@ -8,10 +8,10 @@ Enable Supernova skills and commands in Antigravity via native skill discovery a
 
 ## Installation
 
-There are two ways to install Supernova depending on your workflow: **Global (User-Level)** or **Project (Codebase-Level)**.
+There are two ways to install Supernova: **Global (User-Level)** or **Project (Codebase-Level)**.
 
 ### Global Installation (User-Level)
-This makes Supernova available across all your codebases everywhere on your machine.
+This makes Supernova available across all your codebases.
 
 1. **Clone the Supernova repository:**
    ```bash
@@ -19,75 +19,107 @@ This makes Supernova available across all your codebases everywhere on your mach
    ```
 
 2. **Create the skills symlink:**
-   Antigravity naturally discovers custom skills placed in the global `~/.agents/skills/` directory.
+   Antigravity discovers skills in the global `~/.agent/skills/` directory.
 
    **macOS / Linux:**
    ```bash
-   mkdir -p ~/.agents/skills
-   ln -s ~/.antigravity/supernova/skills ~/.agents/skills/supernova
+   mkdir -p ~/.agent/skills
+   ln -s ~/.antigravity/supernova/skills ~/.agent/skills/supernova
    ```
 
    **Windows (PowerShell):**
    ```powershell
-   New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.agents\skills"
-   cmd /c mklink /J "$env:USERPROFILE\.agents\skills\supernova" "$env:USERPROFILE\.antigravity\supernova\skills"
+   New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.agent\skills"
+   cmd /c mklink /J "$env:USERPROFILE\.agent\skills\supernova" "$env:USERPROFILE\.antigravity\supernova\skills"
    ```
 
 3. **Create the workflows symlink:**
-   Antigravity processes predefined step-by-step commands through the `workflows` directory. Supernova's `.md` commands map perfectly to this.
+   Antigravity processes workflow commands through the `workflows` directory.
 
    **macOS / Linux:**
    ```bash
-   mkdir -p ~/.agents/workflows
-   ln -s ~/.antigravity/supernova/commands ~/.agents/workflows/supernova
+   mkdir -p ~/.agent/workflows
+   ln -s ~/.antigravity/supernova/commands ~/.agent/workflows/supernova
    ```
 
    **Windows (PowerShell):**
    ```powershell
-   New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.agents\workflows"
-   cmd /c mklink /J "$env:USERPROFILE\.agents\workflows\supernova" "$env:USERPROFILE\.antigravity\supernova\commands"
+   New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.agent\workflows"
+   cmd /c mklink /J "$env:USERPROFILE\.agent\workflows\supernova" "$env:USERPROFILE\.antigravity\supernova\commands"
    ```
 
 ### Project Installation (Codebase-Level)
-This makes Supernova available *only* within a specific codebase, meaning your entire team automatically gains these skills when they clone your project repo.
+This makes Supernova available only within a specific project. Your team automatically gains these skills when they clone the repo.
 
-1. **Clone or copy the Supernova repository into your project:**
+1. **Clone Supernova into your project:**
    ```bash
    git clone https://github.com/mrsknetwork/supernova.git ./supernova-plugin
    ```
 
-2. **Create the Project skills and workflow folders:**
-   Antigravity scans for `.agents/skills` and `.agents/workflows` locally inside your project root directory.
+2. **Copy skills and workflows into your project:**
+   Antigravity scans `.agent/skills/` and `.agent/workflows/` inside the project root.
    ```bash
-   mkdir -p .agents/skills
-   mkdir -p .agents/workflows
-   
-   cp -r ./supernova-plugin/skills .agents/skills/supernova
-   cp -r ./supernova-plugin/commands .agents/workflows/supernova
+   mkdir -p .agent/skills .agent/workflows
+   cp -r ./supernova-plugin/skills .agent/skills/supernova
+   cp -r ./supernova-plugin/commands .agent/workflows/supernova
    ```
+
+## Available Skills
+
+After installation, the following skills are available:
+
+| Skill | Description |
+|-------|-------------|
+| `orchestrator` | Entry point — analyzes scope, detects mode, routes workflow |
+| `builder` | Implementation with integrated TDD and review |
+| `guard` | Security scanning with LLM-specific protections |
+| `modify` | Safe delete, rename, bulk update with rollback |
+| `ship` | Verify, commit, and finish work |
+| `debugger` | 4-phase systematic debugging |
+| `docs` | Technical and non-technical documentation |
+| `research` | R&D and technology evaluation |
+| `search` | Live web search and CVE lookup |
+
+## What's Included
+
+The clone contains everything Supernova needs:
+
+| Directory | Purpose |
+|-----------|---------|
+| `skills/` | 13 agent skills (orchestrator, builder, guard, etc.) |
+| `commands/` | `/nova` unified command entry point |
+| `assets/` | PRD and task-list templates for plan-writer |
+| `hooks/` | Git hook configs for security scanning |
+| `.supernova/` | Runtime config (modes, security, optimization) |
+| `tests/` | Test suite (for contributors) |
+
+## Command
+
+The main command is `/nova`:
+```bash
+/nova [turbo|standard|audit] "your request"
+/nova build | guard | debug | modify | ship | review | research
+```
 
 ## Verify
 
-You can verify the installation by checking the symlink directories:
+Check the symlinks are working:
 ```bash
-ls -la ~/.agents/skills/supernova
-ls -la ~/.agents/workflows/supernova
+ls -la ~/.agent/skills/supernova
+ls -la ~/.agent/workflows/supernova
 ```
-You should see symlinks (or junctions on Windows) pointing to your Supernova skills and commands directories, respectively.
 
 ## Updating
 
-To update the skills and workflows automatically, simply pull the latest changes:
+Pull the latest changes (symlinks update automatically):
 ```bash
 cd ~/.antigravity/supernova && git pull
 ```
-Because of the symlink, the skills and workflows in Antigravity will be updated instantly.
 
 ## Uninstalling
 
-To remove Supernova from Antigravity:
 ```bash
-rm ~/.agents/skills/supernova
-rm ~/.agents/workflows/supernova
+rm ~/.agent/skills/supernova
+rm ~/.agent/workflows/supernova
 ```
-Optionally delete the clone: `rm -rf ~/.antigravity/supernova`.
+Optionally delete the clone: `rm -rf ~/.antigravity/supernova`

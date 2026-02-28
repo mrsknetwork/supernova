@@ -1,5 +1,5 @@
 {
-  "version": "2.0.0",
+  "version": "1.0.1",
   "name": "supernova-simplified",
   "description": "Simplified Supernova with tiered execution modes",
   "default_mode": "auto",
@@ -38,14 +38,33 @@
   },
   "mode_detection": {
     "turbo_indicators": [
-      "fix", "typo", "rename", "color", "style",
-      "format", "lint", "comment", "log",
-      "bugfix", "quick", "simple", "minor"
+      "fix",
+      "typo",
+      "rename",
+      "color",
+      "style",
+      "format",
+      "lint",
+      "comment",
+      "log",
+      "bugfix",
+      "quick",
+      "simple",
+      "minor"
     ],
     "audit_indicators": [
-      "auth", "security", "payment", "encrypt",
-      "architecture", "refactor", "migrate", "redesign",
-      "oauth", "database", "core", "critical"
+      "auth",
+      "security",
+      "payment",
+      "encrypt",
+      "architecture",
+      "refactor",
+      "migrate",
+      "redesign",
+      "oauth",
+      "database",
+      "core",
+      "critical"
     ],
     "file_thresholds": {
       "turbo_max": 3,
@@ -61,6 +80,7 @@
     "block_eval_exec": true,
     "scan_sql_injection": true,
     "scan_path_traversal": true,
+    "secret_patterns_note": "These are label identifiers for categories of secrets. Actual regex patterns for scanning are defined in hooks/hooks.json under scanners.secrets.patterns.",
     "secret_patterns": [
       "api-key",
       "apikey",
@@ -80,32 +100,45 @@
     "skip_redundant_scans": true
   },
   "agents": {
-    "core_orchestrator": {
+    "orchestrator": {
       "enabled": true,
       "priority": 0
     },
-    "build_agent": {
+    "builder": {
       "enabled": true,
       "priority": 1
     },
-    "guard_agent": {
+    "guard": {
       "enabled": true,
       "priority": 2,
-      "hooks": ["pre-write", "pre-execute", "pre-delete"]
+      "hooks": [
+        "pre-write",
+        "pre-execute",
+        "pre-delete"
+      ]
     },
-    "modify_agent": {
+    "modify": {
       "enabled": true,
       "priority": 3
     },
-    "ship_agent": {
+    "ship": {
       "enabled": true,
       "priority": 4
     }
   },
   "commands": {
-    "supernova": {
+    "nova": {
       "description": "Main entry point with mode selection",
-      "subcommands": ["turbo", "standard", "audit", "review", "guard", "debug", "modify", "ship"]
+      "subcommands": [
+        "turbo",
+        "standard",
+        "audit",
+        "review",
+        "guard",
+        "debug",
+        "modify",
+        "ship"
+      ]
     }
   }
 }

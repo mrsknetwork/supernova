@@ -1,4 +1,4 @@
-# Installing Supernova for OpenCode
+# Installing Supernova for Cursor
 
 ## AI-Assisted Installation
 
@@ -7,42 +7,50 @@
 ### Step 1 — Clone the repository
 
 ```bash
-git clone https://github.com/mrsknetwork/supernova.git ~/.config/opencode/supernova
+git clone https://github.com/mrsknetwork/supernova.git ~/.cursor/plugins/supernova
 ```
 
 ### Step 2 — Create the skills symlink
 
-OpenCode discovers skills in `~/.opencode/skills/` (user-level) or `.opencode/skills/` (project-level).
+Cursor discovers skills in `~/.cursor/skills/`. Symlink the Supernova skills directory there.
 
 **macOS / Linux:**
 ```bash
-mkdir -p ~/.opencode/skills
-ln -sf ~/.config/opencode/supernova/skills ~/.opencode/skills/supernova
+mkdir -p ~/.cursor/skills
+ln -sf ~/.cursor/plugins/supernova/skills ~/.cursor/skills/supernova
 ```
 
 **Windows (PowerShell):**
 ```powershell
-New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.opencode\skills"
-cmd /c mklink /J "$env:USERPROFILE\.opencode\skills\supernova" "$env:USERPROFILE\.config\opencode\supernova\skills"
+New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.cursor\skills"
+cmd /c mklink /J "$env:USERPROFILE\.cursor\skills\supernova" "$env:USERPROFILE\.cursor\plugins\supernova\skills"
 ```
 
-### Step 3 — Verify installation
+### Step 3 — Create the commands symlink
+
+Cursor discovers custom commands in `~/.cursor/commands/`. Link the Supernova `/nova` command.
+
+**macOS / Linux:**
+```bash
+mkdir -p ~/.cursor/commands
+ln -sf ~/.cursor/plugins/supernova/commands/nova.md ~/.cursor/commands/nova.md
+```
+
+**Windows (PowerShell):**
+```powershell
+New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.cursor\commands"
+Copy-Item "$env:USERPROFILE\.cursor\plugins\supernova\commands\nova.md" "$env:USERPROFILE\.cursor\commands\nova.md"
+```
+
+### Step 4 — Verify installation
 
 Confirm skills are accessible:
 ```bash
-ls ~/.opencode/skills/supernova/orchestrator/SKILL.md
+ls ~/.cursor/skills/supernova/orchestrator/SKILL.md
+ls ~/.cursor/commands/nova.md
 ```
 
-If the file exists, installation is complete. Restart OpenCode to discover the new skills.
-
-### Step 4 — Verify in OpenCode
-
-Ask OpenCode to list available skills:
-```
-List all available skills
-```
-
-You should see Supernova skills (`orchestrator`, `builder`, `guard`, etc.) listed.
+If both files exist, installation is complete.
 
 ---
 
@@ -56,12 +64,11 @@ Makes Supernova available only within a specific project. Your team gets these s
 # Clone into your project
 git clone https://github.com/mrsknetwork/supernova.git ./supernova-plugin
 
-# Copy skills into OpenCode's project-level discovery path
-mkdir -p .opencode/skills
-cp -r ./supernova-plugin/skills .opencode/skills/supernova
+# Copy skills into Cursor's project-level discovery path
+mkdir -p .cursor/skills .cursor/commands
+cp -r ./supernova-plugin/skills .cursor/skills/supernova
+cp ./supernova-plugin/commands/nova.md .cursor/commands/nova.md
 ```
-
-OpenCode scans `.opencode/skills/` recursively from your working directory up to the git root.
 
 ### Option B — Global (User-Level)
 
@@ -111,39 +118,26 @@ The clone contains everything Supernova needs:
 /nova research          R&D and technology evaluation
 ```
 
-## Skill Permissions
-
-Configure skill permissions in your `.opencode.json`:
-
-```json
-{
-  "skills": {
-    "permissions": {
-      "allow": ["supernova/*"],
-      "deny": []
-    }
-  }
-}
-```
-
 ## Updating
 
 ```bash
-cd ~/.config/opencode/supernova && git pull
+cd ~/.cursor/plugins/supernova && git pull
 ```
 
-Symlinks ensure OpenCode picks up changes. Restart OpenCode to reload skills.
+Symlinks ensure Cursor picks up changes immediately.
 
 ## Uninstalling
 
 **macOS / Linux:**
 ```bash
-rm ~/.opencode/skills/supernova
-rm -rf ~/.config/opencode/supernova
+rm ~/.cursor/skills/supernova
+rm ~/.cursor/commands/nova.md
+rm -rf ~/.cursor/plugins/supernova
 ```
 
 **Windows:**
 ```powershell
-Remove-Item "$env:USERPROFILE\.opencode\skills\supernova" -Recurse
-Remove-Item "$env:USERPROFILE\.config\opencode\supernova" -Recurse
+Remove-Item "$env:USERPROFILE\.cursor\skills\supernova" -Recurse
+Remove-Item "$env:USERPROFILE\.cursor\commands\nova.md"
+Remove-Item "$env:USERPROFILE\.cursor\plugins\supernova" -Recurse
 ```

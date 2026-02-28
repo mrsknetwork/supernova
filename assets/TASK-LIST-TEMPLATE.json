@@ -1,9 +1,8 @@
 {
-  "version": "2.0.0",
+  "version": "1.0.1",
   "plugin": "supernova",
   "template_type": "task_list",
   "description": "JSON task list format for autonomous mode",
-
   "tasks": [
     {
       "id": 1,
@@ -34,7 +33,9 @@
         "src/core.js",
         "tests/core.test.js"
       ],
-      "dependencies": [1],
+      "dependencies": [
+        1
+      ],
       "estimated_complexity": "medium"
     },
     {
@@ -50,23 +51,23 @@
         "src/routes.js",
         "src/server.js"
       ],
-      "dependencies": [2],
+      "dependencies": [
+        2
+      ],
       "estimated_complexity": "medium"
     }
   ],
-
   "quality_gates": {
-    "debug_agent": {
+    "debugger": {
       "min_slop_score": 7
     },
-    "code_review_agent": {
+    "builder": {
       "verdict": "PASS"
     },
-    "security_agent": {
+    "guard": {
       "max_severity": "medium"
     }
   },
-
   "metadata": {
     "project_name": "Example Project",
     "language": "javascript",

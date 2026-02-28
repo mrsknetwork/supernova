@@ -3,7 +3,7 @@ name: subagent-engine
 description: "Use when executing implementation plans with independent tasks in the current session. Dispatches fresh subagent per task with two-stage review. Triggers - build, subagent, execute tasks, implement plan in session."
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   priority: "7"
 argument-hint: "[plan-file-path]"
 disable-model-invocation: false
@@ -78,7 +78,7 @@ For each task:
 After all tasks complete:
 - Dispatch final code-reviewer subagent for entire implementation
 - Verify all tests pass
-- **REQUIRED SUB-SKILL:** Use `supernova:branch-finisher`
+- **REQUIRED SUB-SKILL:** Use `supernova:ship`
 
 ---
 
@@ -123,9 +123,8 @@ After all tasks complete:
 ## Integration
 
 **Required workflow skills:**
-- **supernova:worktree-manager** - REQUIRED: Set up isolated workspace before starting
+- **supernova:ship** - REQUIRED: Set up isolated workspace and complete development
 - **supernova:plan-writer** - Creates the plan this skill executes
-- **supernova:branch-finisher** - Complete development after all tasks
 
 **Subagents should use:**
-- **supernova:tdd-enforcer** - Subagents follow TDD for each task
+- **supernova:builder** - Subagents follow integrated TDD for each task

@@ -1,8 +1,8 @@
 {
     "name": "supernova",
     "displayName": "Supernova",
-    "description": "Supernova AI Dev Team Orchestrator and full-lifecycle agent workflows.",
-    "version": "1.0.0",
+    "description": "AI Dev Team Orchestrator. Core skills: orchestrator, builder, guard, modify, ship. Specialist skills: debugger, docs, research, search.",
+    "version": "1.0.1",
     "author": {
         "name": "Kamesh",
         "url": "https://github.com/mrsknetwork"
@@ -18,8 +18,9 @@
         "multi-agent",
         "dev-team",
         "skills",
-        "commands",
-        "workflows"
+        "tdd",
+        "security",
+        "code-review"
     ],
     "skills": "./skills/",
     "commands": "./commands/",

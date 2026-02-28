@@ -9,5 +9,5 @@ Please include a summary of the requested changes and the related issue/feature.
 
 ## Checklist:
 - [ ] I have verified my new skill using TDD-adapted documentation methodology.
-- [ ] The `SKILL.md` file follows the strict versioning (`1.0.0`) and formatting rules (no emojis/em-dashes).
+- [ ] The `SKILL.md` file follows the current versioning convention (`1.0.1`) and formatting rules (no emojis/em-dashes).
 - [ ] I have updated the pipelines/commands if applicable.
