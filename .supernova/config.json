@@ -124,6 +124,22 @@
     "ship": {
       "enabled": true,
       "priority": 4
+    },
+    "plan": {
+      "enabled": true,
+      "priority": 5
+    },
+    "system": {
+      "enabled": true,
+      "priority": 6
+    },
+    "context": {
+      "enabled": true,
+      "priority": 7
+    },
+    "infra": {
+      "enabled": true,
+      "priority": 8
     }
   },
   "commands": {
@@ -137,7 +153,11 @@
         "guard",
         "debug",
         "modify",
-        "ship"
+        "ship",
+        "plan",
+        "system",
+        "context",
+        "infra"
       ]
     }
   }

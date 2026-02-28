@@ -41,6 +41,15 @@ description: "Unified entry point for all Supernova operations. Supports turbo, 
 /nova ship                # Verify and finish
 ```
 
+### SDLC Operations
+
+```bash
+/nova plan                # Sprint planning & tickets
+/nova system              # Architecture & system design
+/nova context             # Onboarding & codebase analysis
+/nova infra               # DevOps & infrastructure config
+```
+
 ## Examples
 
 ### Turbo Mode (Fast)
@@ -140,6 +149,15 @@ Supernova automatically selects mode based on:
 /nova guard --deep        # Deep security audit
 /nova guard --secrets     # Secret scan only
 /nova guard --llm         # LLM injection check
+```
+
+## SDLC Subcommands
+
+```bash
+/nova plan                # Generate plan/tickets
+/nova system              # Design architecture/DB
+/nova context             # Explain codebase execution
+/nova infra               # Configure Docker/CI pipelines
 ```
 
 ## Debug Subcommand

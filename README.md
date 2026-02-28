@@ -90,6 +90,15 @@ All capabilities are accessible via the `/nova` prefix.
 | `debugger` | Systematic root cause investigation. |
 | `modify` | Safe codebase restructuring with rollbacks. |
 
+### SDLC Workflow Skills
+These skills simulate real-world engineering roles to manage the entire Software Development Life Cycle:
+| Skill | Role |
+|-------|------|
+| `plan` | **Project Manager:** Agile sprint planning, roadmap, and ticket breakdown. |
+| `system` | **Architect:** System design, ADRs, data modeling, API contracts. |
+| `context` | **Staff Engineer:** Codebase onboarding, dependency mapping, data flow analysis. |
+| `infra` | **DevOps Engineer:** Docker, CI/CD pipelines, Terraform, and deployments. |
+
 *Additional specialists: `docs`, `research`, `search`, `shadcn-ui`.*
 
 ---
