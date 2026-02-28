@@ -91,6 +91,7 @@ After installation, skills are invoked as `supernova:<skill-name>`:
 | `docs` | Technical and non-technical documentation |
 | `research` | R&D and technology evaluation |
 | `search` | Live web search and CVE lookup |
+| `shadcn-ui` | Add, design, or customize UI components |
 
 ## What's Included
 
@@ -98,7 +99,7 @@ The clone contains everything Supernova needs:
 
 | Directory | Purpose |
 |-----------|---------|
-| `skills/` | 13 agent skills (orchestrator, builder, guard, etc.) |
+| `skills/` | 10 agent skills (orchestrator, builder, guard, etc.) |
 | `commands/` | `/nova` unified command entry point |
 | `assets/` | PRD and task-list templates for plan-writer |
 | `hooks/` | Git hook configs for security scanning |

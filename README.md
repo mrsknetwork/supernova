@@ -88,6 +88,7 @@ All capabilities are accessible via the `/nova` prefix.
 | `guard` | Security scanning and validation. |
 | `ship` | Commits, pull requests, and workspace cleanup. |
 | `debugger` | Systematic root cause investigation. |
+| `modify` | Safe codebase restructuring with rollbacks. |
 
 *Additional specialists: `docs`, `research`, `search`, `shadcn-ui`.*
 

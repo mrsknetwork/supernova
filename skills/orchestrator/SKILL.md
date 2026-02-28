@@ -46,6 +46,12 @@ ELSE:
     MODE = audit
 ```
 
+### Complexity Assessment
+To evaluate the `complexity` variable above:
+- **Low**: Minor tweaks, bug fixes in existing logic, simple refactors, documentation updates.
+- **Medium**: Adding new endpoint/component logic following existing patterns, moderate data model changes.
+- **High**: Architectural shifts, integrating new third-party services, major security implication changes, or establishing new patterns.
+
 ---
 
 ## Turbo Mode Flow

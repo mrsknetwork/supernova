@@ -35,7 +35,8 @@ npm run lint  # or flake8, clippy, golint
 npm run build  # or cargo build, go build
 
 # 4. Security Scan
-guard scan
+# Dispatch `supernova:guard` to perform the security scan
+# Do NOT run `guard scan` in bash
 
 # 5. Git Status
 git status

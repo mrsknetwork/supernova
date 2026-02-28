@@ -97,21 +97,21 @@ If you haven't completed Phase 1, you cannot propose fixes.
 
 Hunt for these patterns aggressively:
 
-###  Critical Slop (fix immediately)
+### [CRITICAL] Critical Slop (fix immediately)
 - **SQL injection via template literals**: `` `SELECT * FROM users WHERE id = ${userId}` ``
 - **Hardcoded secrets**: API keys, passwords, tokens in code
 - **Hallucinated imports**: `import { nonExistent } from 'real-library'`
 - **Empty catch blocks**: `catch(e) { // TODO }` - silently swallows errors
 - **Auth bypasses**: `if (user.role === 'admin' || true)`
 
-###  Warning Slop (fix before shipping)
+### [WARNING] Warning Slop (fix before shipping)
 - **Broken async/await**: Missing `await`, unhandled Promise rejections
 - **Copy-paste duplication**: Near-identical blocks that should be a function
 - **Incorrect type assumptions**: `.id` used as string when it's a number
 - **Missing null/undefined checks**: Accessing `.property` without guard
 - **Unreachable code**: Logic after `return` statement
 
-###  Info Slop (clean up when possible)
+### [INFO] Info Slop (clean up when possible)
 - **Hardcoded values**: Magic numbers, URLs, config that should be env vars
 - **Misleading variable names**: `data`, `result`, `temp`, `stuff`
 - **Commented-out code blocks**: Dead code left in
@@ -136,9 +136,9 @@ Hunt for these patterns aggressively:
 | Fix | [what was implemented] |
 
 ### AI Slop Scan Results
-- [x] SQL injection check:  PASSED /  FAILED
-- [x] Empty catch blocks:  PASSED /  FAILED
-- [x] Hardcoded secrets:  PASSED /  FAILED
+- [ ] SQL injection check: [PASS] / [FAIL]
+- [ ] Empty catch blocks: [PASS] / [FAIL]
+- [ ] Hardcoded secrets: [PASS] / [FAIL]
 ...
 
 ### Fixes Applied
