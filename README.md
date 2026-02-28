@@ -1,6 +1,8 @@
+<div align="center">
+
 # Supernova
 
-**Unified Dev Team Orchestration.**
+**Unified Development Team Orchestration for Software Engineering.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Platform: Claude](https://img.shields.io/badge/Platform-Claude_Code-blue)](.claude-plugin/INSTALL.md)
@@ -9,7 +11,9 @@
 [![Platform: Codex](https://img.shields.io/badge/Platform-Codex-orange)](.codex/INSTALL.md)
 [![Platform: OpenCode](https://img.shields.io/badge/Platform-OpenCode-black)](.opencode/INSTALL.md)
 
-Supernova is a software development workflow engine. It orchestrates a specialized Dev Team of skills and pipelines to transform requirements into verified, production-ready code.
+[Documentation](.github/CONTRIBUTING.md) | [Security](.github/SECURITY.md) | [Install Guide](.claude-plugin/INSTALL.md)
+
+</div>
 
 ---
 
