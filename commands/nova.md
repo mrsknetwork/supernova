@@ -19,6 +19,7 @@ description: "Unified entry point for all Supernova operations. Supports turbo, 
 | `turbo` | 1-3 files, simple | Fastest | Good |
 | `standard` | 3-10 files, feature | Moderate | Better |
 | `audit` | 10+ files, complex | Thorough | Best |
+| `lifecycle` | Strategy, planning, architecture, post-launch | Contextual | Authoritative |
 | `auto` | Let Supernova decide | Adaptive | Balanced |
 
 ## Subcommands
@@ -122,6 +123,38 @@ description: "Unified entry point for all Supernova operations. Supports turbo, 
 **Time:** 1-2 hours
 **Tokens:** +50% (but catches issues early)
 
+## Lifecycle Subcommand
+
+Routes to `supernova:lifecycle` for all SDLC phases outside the build loop.
+
+### Usage
+
+/nova lifecycle "validate my product idea against the market"
+/nova lifecycle prd "write a PRD for the auth system"
+/nova lifecycle adr "should we use microservices or monolith"
+/nova lifecycle schema "design the database schema for users and orders"
+/nova lifecycle api "design the REST API contract for the payments service"
+/nova lifecycle security "threat model the authentication flow"
+/nova lifecycle postlaunch "define our metrics framework"
+/nova lifecycle scaling "plan for 10x current load"
+/nova lifecycle gtm "create our go-to-market strategy for launch"
+/nova lifecycle governance "structure our technical debt management plan"
+
+### Phase Flags
+
+--phase framing        Force framing phase
+--phase strategy       Force strategy phase
+--phase architecture   Force architecture phase
+--phase ux             Force UX strategy phase
+--phase api            Force API design phase
+--phase database       Force database design phase
+--phase infra          Force infrastructure phase
+--phase security       Force security/threat modeling phase
+--phase postlaunch     Force post-launch operations phase
+--phase gtm            Force go-to-market phase
+--phase scaling        Force scaling readiness phase
+--phase governance     Force governance/maintenance phase
+
 ## Auto Mode
 
 ```bash
@@ -190,6 +223,9 @@ Supernova automatically selects mode based on:
 ## Options
 
 ```bash
+--phase [name]     Force a specific SDLC lifecycle phase
+--no-code          Route to lifecycle skill regardless of request type
+--sdlc             Show current SDLC phase classification for a request (dry-run routing)
 --dry-run          # Preview without executing
 --verbose          # Detailed output
 --quiet            # Minimal output
@@ -212,6 +248,13 @@ Supernova automatically selects mode based on:
 - Exit codes for automation
 
 ## Examples by Use Case
+
+### SDLC Strategy and Planning
+/nova lifecycle prd "define the MVP for our SaaS product"
+/nova lifecycle adr "monolith vs microservices for our scale"
+/nova lifecycle schema "users, subscriptions, and billing tables"
+/nova lifecycle security "threat model the payment flow"
+/nova lifecycle postlaunch "activation and retention metrics"
 
 ### Bug Fix
 ```bash

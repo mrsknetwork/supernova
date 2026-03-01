@@ -28,9 +28,16 @@ cmd /c mklink /J "$env:USERPROFILE\.agents\skills\supernova" "$env:USERPROFILE\.
 
 ### Step 3 — Verify installation
 
-Confirm skills are accessible:
+Confirm skills are accessible.
+
+**macOS / Linux:**
 ```bash
 ls ~/.agents/skills/supernova/orchestrator/SKILL.md
+```
+
+**Windows (PowerShell):**
+```powershell
+Get-ChildItem -Path "$env:USERPROFILE\.agents\skills\supernova\orchestrator\SKILL.md"
 ```
 
 If the file exists, installation is complete. Restart Codex to discover the new skills.

@@ -3,7 +3,8 @@ name: guard
 description: "Security scanning with LLM-specific protections. Runs on every file modification. Blocks dangerous operations, detects prompt injection, scans secrets."
 license: MIT
 metadata:
-  version: "1.0.1"
+  version: "1.0.2"
+  sdlc_phases: ["security", "implementation"]
   replaces: ["security-agent"]
   triggers: ["file-write", "file-edit", "pre-execute", "pre-delete"]
   scan_types: ["secrets", "injection", "vulnerabilities", "llm-safety"]

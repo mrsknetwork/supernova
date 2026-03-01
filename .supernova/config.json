@@ -1,5 +1,6 @@
 {
-  "version": "1.0.1",
+  "version": "1.0.2",
+  "sdlc_aware": true,
   "name": "supernova-simplified",
   "description": "Simplified Supernova with tiered execution modes",
   "default_mode": "auto",
@@ -99,10 +100,36 @@
     "inline_small_tasks": true,
     "skip_redundant_scans": true
   },
+  "sdlc_routing": {
+    "lifecycle_loop_skill": "supernova:lifecycle",
+    "build_loop_skill": "supernova:builder",
+    "default_loop": "auto",
+    "ambiguous_request_default": "build_loop",
+    "phase_classification_required": true
+  },
   "agents": {
     "orchestrator": {
       "enabled": true,
-      "priority": 0
+      "priority": -1
+    },
+    "lifecycle": {
+      "enabled": true,
+      "priority": 0,
+      "loop": "lifecycle",
+      "sdlc_phases": [
+        "framing",
+        "strategy",
+        "architecture",
+        "ux",
+        "api",
+        "database",
+        "infrastructure",
+        "security",
+        "post-launch",
+        "go-to-market",
+        "scaling",
+        "governance"
+      ]
     },
     "builder": {
       "enabled": true,
@@ -146,6 +173,7 @@
     "nova": {
       "description": "Main entry point with mode selection",
       "subcommands": [
+        "lifecycle",
         "turbo",
         "standard",
         "audit",

@@ -3,7 +3,7 @@ name: plan
 description: "Use when you need a Project Manager or Scrum Master. This agent handles agile sprint planning, roadmap creation, ticket generation, and timeline estimation. Triggers - plan sprint, write tickets, break down epic, estimate timeline."
 license: MIT
 metadata:
-  version: "1.0.1"
+  version: "1.0.2"
   priority: "6"
 argument-hint: "[epic-or-feature]"
 disable-model-invocation: false

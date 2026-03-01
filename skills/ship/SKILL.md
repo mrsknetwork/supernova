@@ -3,7 +3,8 @@ name: ship
 description: "Verify, commit, and finish work. Handles merge, PR creation, cleanup. Replaces branch-finisher and worktree-manager."
 license: MIT
 metadata:
-  version: "1.0.1"
+  version: "1.0.2"
+  sdlc_phases: ["ci-cd", "deployment"]
   replaces: ["branch-finisher", "worktree-manager"]
   operations: ["verify", "commit", "pr", "merge", "cleanup"]
 argument-hint: "[operation]"

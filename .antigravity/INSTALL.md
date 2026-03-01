@@ -108,10 +108,18 @@ The main command is `/nova`:
 
 ## Verify
 
-Check the symlinks are working:
+Check the symlinks are working.
+
+**macOS / Linux:**
 ```bash
 ls -la ~/.agent/skills/supernova
 ls -la ~/.agent/workflows/supernova
+```
+
+**Windows (PowerShell):**
+```powershell
+Get-ChildItem -Path "$env:USERPROFILE\.agent\skills\supernova"
+Get-ChildItem -Path "$env:USERPROFILE\.agent\workflows\supernova"
 ```
 
 ## Updating

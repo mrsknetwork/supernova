@@ -1,0 +1,10 @@
+feat: v1.0.2 - SDLC-aware orchestration and lifecycle skill
+
+- Add lifecycle skill covering 12 SDLC phases outside the build loop
+- Upgrade orchestrator with 2-layer routing: SDLC phase first, mode second
+- Wire all existing skills with sdlc_phases metadata
+- Add /nova lifecycle subcommand with phase flags
+- Update .supernova/config.json with sdlc_routing and lifecycle agent
+- Update session-start hook with SDLC phase classification protocol
+- Update all plugin.json files to v1.0.2
+- 15-phase SDLC model fully mapped to specialist skills

@@ -44,10 +44,18 @@ Copy-Item "$env:USERPROFILE\.cursor\plugins\supernova\commands\nova.md" "$env:US
 
 ### Step 4 — Verify installation
 
-Confirm skills are accessible:
+Confirm skills are accessible.
+
+**macOS / Linux:**
 ```bash
 ls ~/.cursor/skills/supernova/orchestrator/SKILL.md
 ls ~/.cursor/commands/nova.md
+```
+
+**Windows (PowerShell):**
+```powershell
+Get-ChildItem -Path "$env:USERPROFILE\.cursor\skills\supernova\orchestrator\SKILL.md"
+Get-ChildItem -Path "$env:USERPROFILE\.cursor\commands\nova.md"
 ```
 
 If both files exist, installation is complete.

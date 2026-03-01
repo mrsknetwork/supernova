@@ -3,7 +3,7 @@ name: shadcn-ui
 description: "You are the Shadcn UI Agent. Use this when the user needs to add, design, or customize UI components using Shadcn UI. Triggers - UI components, Shadcn, add button, design interface."
 license: MIT
 metadata:
-  version: "1.0.1"
+  version: "1.0.2"
   priority: "0.6"
   mandatory: "false"
   runs: "during-implementation"

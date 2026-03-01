@@ -3,7 +3,8 @@ name: builder
 description: "Executes implementation with TDD and review built-in. Handles turbo (inline), standard (single subagent), and audit (multi-agent) execution."
 license: MIT
 metadata:
-  version: "1.0.1"
+  version: "1.0.2"
+  sdlc_phases: ["testing", "implementation"]
   replaces: ["subagent-engine", "tdd-enforcer", "code-review-agent", "verification-gate"]
   modes: ["turbo", "standard", "audit"]
 argument-hint: "[task-or-plan]"

@@ -3,7 +3,7 @@ name: infra
 description: "Use when you need a DevOps or Platform Engineer. This agent handles cloud infrastructure, Docker, Kubernetes, CI/CD pipelines, and environment configuration. Triggers - setup docker, create github action, configure CI/CD, deploy to cloud."
 license: MIT
 metadata:
-  version: "1.0.1"
+  version: "1.0.2"
   priority: "9"
 argument-hint: "[infrastructure-target]"
 disable-model-invocation: false

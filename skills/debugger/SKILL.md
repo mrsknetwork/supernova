@@ -3,7 +3,8 @@ name: debugger
 description: "Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes. Enforces 4-phase root cause investigation. Includes AI slop detection. Triggers - debug, fix, broken, error, not working, bug, investigate."
 license: MIT
 metadata:
-  version: "1.0.1"
+  version: "1.0.2"
+  sdlc_phases: ["implementation"]
   priority: "2"
   mandatory: "true"
 argument-hint: "[error-or-file-path]"

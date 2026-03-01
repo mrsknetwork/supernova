@@ -3,7 +3,7 @@ name: context
 description: "Use when you need a Staff Engineer to summarize, explain, or onboard. This agent analyzes cross-cutting dependencies, generates project summaries, and explains data flows. Triggers - explain codebase, onboard me, how does this work, find where we handle X."
 license: MIT
 metadata:
-  version: "1.0.1"
+  version: "1.0.2"
   priority: "8"
 argument-hint: "[concept-or-directory]"
 disable-model-invocation: false

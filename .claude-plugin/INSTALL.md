@@ -44,10 +44,18 @@ Copy-Item "$env:USERPROFILE\.claude\plugins\supernova\commands\nova.md" "$env:US
 
 ### Step 4 — Verify installation
 
-Confirm the symlinks resolve correctly:
+Confirm the symlinks resolve correctly.
+
+**macOS / Linux:**
 ```bash
 ls ~/.claude/skills/supernova/orchestrator/SKILL.md
 ls ~/.claude/commands/nova.md
+```
+
+**Windows (PowerShell):**
+```powershell
+Get-ChildItem -Path "$env:USERPROFILE\.claude\skills\supernova\orchestrator\SKILL.md"
+Get-ChildItem -Path "$env:USERPROFILE\.claude\commands\nova.md"
 ```
 
 If both files exist, installation is complete.

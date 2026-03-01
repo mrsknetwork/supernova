@@ -2,7 +2,8 @@
 name: docs
 description: Use when creating, editing, or managing documentation of any kind. This agent handles Technical documentation (READMEs, API docs), Non-Technical content (user guides, release notes), and Implementation Planning (breaking specs into bite-sized TDD tasks). Triggers - write docs, edit content, create README, write user guide, plan implementation, break down tasks.
 metadata:
-  version: "1.0.1"
+  version: "1.0.2"
+  sdlc_phases: ["go-to-market", "governance"]
   priority: "5"
   replaces: ["plan-writer"]
 argument-hint: "[document-or-spec]"

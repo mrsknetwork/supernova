@@ -3,7 +3,7 @@ name: system
 description: "Use when you need a Software Architect. This agent handles system design, Architecture Decision Records (ADRs), data modeling, API contract design, and Mermaid diagram generation. Triggers - design system, create architecture, design database, API contract."
 license: MIT
 metadata:
-  version: "1.0.1"
+  version: "1.0.2"
   priority: "7"
 argument-hint: "[feature-or-system]"
 disable-model-invocation: false

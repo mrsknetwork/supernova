@@ -3,7 +3,8 @@ name: research
 description: R&D Lead sub-agent for technology intelligence and research. Evaluates and compares technology options, designs proof-of-concept experiments to validate risky assumptions, scans for prior art and existing solutions, assesses technical feasibility, and interprets benchmarks. Prevents wasted effort by validating approaches before implementation. Use when choosing between technologies, evaluating feasibility, planning a POC, comparing libraries, or doing technical due diligence. Triggers - should I use X or Y, compare, which library, is this feasible, proof of concept, R&D, research, evaluate, prior art.
 license: MIT
 metadata:
-  version: "1.0.1"
+  version: "1.0.2"
+  sdlc_phases: ["framing", "architecture", "infrastructure"]
   priority: "6"
   mandatory: "true"
 argument-hint: "[research-question]"

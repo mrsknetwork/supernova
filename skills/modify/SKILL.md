@@ -3,7 +3,8 @@ name: modify
 description: "Safe delete, rename, and bulk update operations. Dry-run first, confirm, then execute with rollback support."
 license: MIT
 metadata:
-  version: "1.0.1"
+  version: "1.0.2"
+  sdlc_phases: ["governance", "implementation"]
   operations: ["delete", "rename", "bulk-update", "refactor"]
 argument-hint: "[operation] [target]"
 disable-model-invocation: false

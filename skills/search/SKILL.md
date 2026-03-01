@@ -4,7 +4,8 @@ description: Live Intelligence and Web Search sub-agent. Searches the web for cu
 license: MIT
 compatibility: Requires internet access. NVD API and package registries are free (no key needed). General web search requires Serper.dev or Brave Search API key.
 metadata:
-  version: "1.0.1"
+  version: "1.0.2"
+  sdlc_phases: ["framing", "security", "architecture"]
   priority: "7"
   mandatory: "true"
 argument-hint: "[search-query]"

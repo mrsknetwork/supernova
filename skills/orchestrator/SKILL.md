@@ -3,7 +3,8 @@ name: orchestrator
 description: "Unified entry point. Analyzes request, determines mode (turbo/standard/audit), routes to appropriate workflow. Replaces context-agent, design-agent, plan-writer, architect-agent."
 license: MIT
 metadata:
-  version: "1.0.1"
+  version: "1.0.2"
+  sdlc_aware: true
   replaces: ["context-agent", "design-agent", "plan-writer", "architect-agent"]
   modes: ["turbo", "standard", "audit"]
 argument-hint: "[request]"
@@ -25,7 +26,42 @@ allowed-tools: Read Glob Grep Bash(git:*) Task
 
 ---
 
-## Mode Detection
+## Step 1: SDLC Phase Classification
+
+Every request must first be classified into one of two routing categories:
+- **build_loop**: requests involving writing, modifying, or deleting code
+- **lifecycle_loop**: requests involving any of the 12 lifecycle phases
+
+### Branching Logic
+```
+IF build_loop -> continue to Step 2 (mode detection, unchanged)
+IF lifecycle_loop -> route to supernova:lifecycle, STOP
+```
+
+*Note on ambiguous requests:* Default to build_loop, note phase in context.
+
+### Phase-to-Route Mapping Table
+| Phase Name | Sub-Phase Triggers | Route |
+|---|---|---|
+| framing | validate idea, market fit | supernova:lifecycle |
+| strategy | PRD, roadmap, risk | supernova:lifecycle |
+| architecture | ADR, system design | supernova:lifecycle |
+| ux | wireframe, user flow | supernova:lifecycle |
+| api | API contract, REST | supernova:lifecycle |
+| database | schema design, ER diagram | supernova:lifecycle |
+| infrastructure | VPC, Terraform | supernova:lifecycle |
+| security | threat model, SOC2 | supernova:lifecycle |
+| testing | unit tests, integration | Step 2 -> builder |
+| ci-cd | pipelines, actions | Step 2 -> ship |
+| deployment | releasing to prod | Step 2 -> ship |
+| post-launch | metrics, retention | supernova:lifecycle |
+| go-to-market | pricing, launch plan | supernova:lifecycle |
+| scaling | sharding, reliability | supernova:lifecycle |
+| governance | technical debt | supernova:lifecycle |
+
+---
+
+## Step 2: Mode Detection (Build Loop Only)
 
 Auto-detect based on scope analysis:
 
@@ -135,7 +171,44 @@ To evaluate the `complexity` variable above:
 
 ---
 
+## Lifecycle Loop Flow
+
+1. **Classify Phase**
+   - Classify the specific SDLC phase
+2. **Snapshot Context**
+   - Pass context snapshot with: sdlc_phase, user goal, codebase context
+3. **Route**
+   - Route to supernova:lifecycle
+
+*Note: orchestrator does not produce lifecycle deliverables itself*
+
+### Context Packet Snapshot
+The following JSON structure is passed to ALL downstream skills at routing:
+```json
+{
+  "sdlc_phase": "...",
+  "mode": "...",
+  "request_summary": "...",
+  "files_affected": [],
+  "complexity_signals": {},
+  "git_context": "..."
+}
+```
+
+---
+
 ## Quick Reference
+
+### Lifecycle Examples
+```
+"write a PRD for the auth system"
+"should we use microservices or monolith"
+"design the database schema for users and orders"
+"design the REST API contract for the payments service"
+"threat model the authentication flow"
+"metric framework for post-launch"
+"structure our technical debt management plan"
+```
 
 ### Turbo Examples
 ```
@@ -165,6 +238,7 @@ To evaluate the `complexity` variable above:
 ## Integration
 
 **Routes to:**
+- `supernova:lifecycle` (lifecycle phase entry)
 - `builder` (turbo/standard)
 - `guard` (security check)
 - Full pipeline (audit mode)
@@ -187,9 +261,11 @@ To evaluate the `complexity` variable above:
 
 ## Rules
 
-1. **Always analyze first** - Never assume mode
-2. **Default to turbo** - When in doubt, start minimal
-3. **Escalate if needed** - Turbo can become standard mid-flight
-4. **One orchestration per request** - Don't nest orchestrators
-5. **Preserve context** - Pass accumulated context to next agent
+1. **Classify SDLC phase first - always before any other analysis**
+2. **Route lifecycle requests immediately - do not handle in orchestrator**
+3. **Always analyze first** - Never assume mode
+4. **Default to turbo** - When in doubt, start minimal
+5. **Escalate if needed** - Turbo can become standard mid-flight
+6. **One orchestration per request** - Don't nest orchestrators
+7. **Preserve context** - Pass accumulated context to next agent
 
