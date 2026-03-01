@@ -36,9 +36,9 @@ sdlc_phases:
 | infrastructure | VPC, cloud architecture, Terraform, Docker, Kubernetes, CI/CD, Observability, Monitoring, Logging, Alerting, Cost Optimization, Disaster Recovery | Infra Plan |
 | security | threat model, compliance, SOC2 | Security Plan |
 | post-launch | metrics, churn, activation, retention | Analytics Plan |
-| go-to-market | pricing, distribution, launch plan | GTM Strategy |
-| scaling | sharding, caching strategy, reliability | Scaling Plan |
-| governance | technical debt, dependency updates | Maintenance Plan |
+| go-to-market | pricing, distribution, launch plan, marketing, sales, support. | GTM Strategy |
+| scaling | sharding, caching strategy, reliability, performance, load balancing, auto-scaling, multi-region deployment, disaster recovery. | Scaling Plan |
+| governance | technical debt, dependency updates, code quality, security, performance, reliability, scalability, maintainability, testability, documentation, compliance, licensing, open source, community, support, training, certification, professional services, consulting, managed services, cloud services, SaaS, PaaS, IaaS, FaaS, CaaS, DaaS, MLaaS, BaaS, XaaS, on-premises, hybrid, multi-cloud. | Governance Plan |
 
 ## Execution Guide
 For each phase:

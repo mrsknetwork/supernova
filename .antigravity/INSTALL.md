@@ -39,13 +39,13 @@ This makes Supernova available across all your codebases.
    **macOS / Linux:**
    ```bash
    mkdir -p ~/.gemini/antigravity/workflows
-   ln -s ~/.antigravity/supernova/commands ~/.gemini/antigravity/workflows/
+   ln -s ~/.antigravity/supernova/commands/nova.md ~/.gemini/antigravity/workflows/nova.md
    ```
 
    **Windows (PowerShell):**
    ```powershell
    New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.gemini\antigravity\workflows"
-   cmd /c mklink /J "$env:USERPROFILE\.gemini\antigravity\workflows\" "$env:USERPROFILE\.antigravity\supernova\commands"
+   Copy-Item "$env:USERPROFILE\.antigravity\supernova\commands\nova.md" "$env:USERPROFILE\.gemini\antigravity\workflows\nova.md"
    ```
 
 ### Project Installation (Codebase-Level)
@@ -61,7 +61,7 @@ This makes Supernova available only within a specific project. Your team automat
    ```bash
    mkdir -p .agent/skills .agent/workflows
    cp -r ./supernova-plugin/skills .agent/skills/supernova
-   cp -r ./supernova-plugin/commands .agent/workflows/
+   cp ./supernova-plugin/commands/nova.md .agent/workflows/nova.md
    ```
 
 ## Available Skills
@@ -114,13 +114,13 @@ Check the symlinks are working.
 **macOS / Linux:**
 ```bash
 ls -la ~/.gemini/antigravity/skills/supernova
-ls -la ~/.gemini/antigravity/workflows/supernova
+ls -la ~/.gemini/antigravity/workflows/nova.md
 ```
 
 **Windows (PowerShell):**
 ```powershell
 Get-ChildItem -Path "$env:USERPROFILE\.gemini\antigravity\skills\supernova"
-Get-ChildItem -Path "$env:USERPROFILE\.gemini\antigravity\workflows\supernova"
+Get-ChildItem -Path "$env:USERPROFILE\.gemini\antigravity\workflows\nova.md"
 ```
 
 ## Updating
@@ -134,6 +134,6 @@ cd ~/.antigravity/supernova && git pull
 
 ```bash
 rm ~/.gemini/antigravity/skills/supernova
-rm ~/.gemini/antigravity/workflows/supernova
+rm ~/.gemini/antigravity/workflows/nova.md
 ```
 Optionally delete the clone: `rm -rf ~/.antigravity/supernova`
