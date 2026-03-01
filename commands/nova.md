@@ -142,18 +142,21 @@ Routes to `supernova:lifecycle` for all SDLC phases outside the build loop.
 
 ### Phase Flags
 
---phase framing        Force framing phase
---phase strategy       Force strategy phase
---phase architecture   Force architecture phase
---phase ux             Force UX strategy phase
---phase api            Force API design phase
---phase database       Force database design phase
---phase infra          Force infrastructure phase
---phase security       Force security/threat modeling phase
---phase postlaunch     Force post-launch operations phase
---phase gtm            Force go-to-market phase
---phase scaling        Force scaling readiness phase
---phase governance     Force governance/maintenance phase
+--phase framing        Force Problem Framing & Ideation phase (1)
+--phase strategy       Force Product Strategy & Planning phase (2)
+--phase architecture   Force Architecture & System Design phase (3)
+--phase ux             Force UX & Frontend System Design phase (4)
+--phase api            Force API Design & Backend Engineering phase (5)
+--phase database       Force Database Design & Configuration phase (6)
+--phase infra          Force Infrastructure & Environment Setup phase (7)
+--phase security       Force Security Engineering phase (8)
+--phase testing        Force Testing Strategy phase (9)
+--phase cicd           Force CI/CD Pipeline phase (10)
+--phase deployment     Force Deployment & Release Management phase (11)
+--phase gtm            Force Go-To-Market Strategy phase (12)
+--phase postlaunch     Force Post-Launch Operations phase (13)
+--phase scaling        Force Scaling Phase phase (14)
+--phase governance     Force Governance & Maintenance phase (15)
 
 ## Auto Mode
 
@@ -254,6 +257,9 @@ Supernova automatically selects mode based on:
 /nova lifecycle adr "monolith vs microservices for our scale"
 /nova lifecycle schema "users, subscriptions, and billing tables"
 /nova lifecycle security "threat model the payment flow"
+/nova lifecycle testing "create a load testing plan for launch"
+/nova lifecycle cicd "design our deployment pipelines"
+/nova lifecycle deployment "plan our blue-green release strategy"
 /nova lifecycle postlaunch "activation and retention metrics"
 
 ### Bug Fix
