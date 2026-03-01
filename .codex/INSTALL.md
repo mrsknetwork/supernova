@@ -12,18 +12,18 @@ git clone https://github.com/mrsknetwork/supernova.git ~/.codex/supernova
 
 ### Step 2 — Create the skills symlink
 
-Codex discovers skills in `~/.agents/skills/` (user-level). Symlink the Supernova skills directory there.
+Codex discovers skills in `~/.codex/skills/` (user-level). Symlink the Supernova skills directory there.
 
 **macOS / Linux:**
 ```bash
-mkdir -p ~/.agents/skills
-ln -sf ~/.codex/supernova/skills ~/.agents/skills/supernova
+mkdir -p ~/.codex/skills
+ln -sf ~/.codex/supernova/skills ~/.codex/skills/supernova
 ```
 
 **Windows (PowerShell):**
 ```powershell
-New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.agents\skills"
-cmd /c mklink /J "$env:USERPROFILE\.agents\skills\supernova" "$env:USERPROFILE\.codex\supernova\skills"
+New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.codex\skills"
+cmd /c mklink /J "$env:USERPROFILE\.codex\skills\supernova" "$env:USERPROFILE\.codex\supernova\skills"
 ```
 
 ### Step 3 — Verify installation
@@ -32,12 +32,12 @@ Confirm skills are accessible.
 
 **macOS / Linux:**
 ```bash
-ls ~/.agents/skills/supernova/orchestrator/SKILL.md
+ls ~/.codex/skills/supernova/orchestrator/SKILL.md
 ```
 
 **Windows (PowerShell):**
 ```powershell
-Get-ChildItem -Path "$env:USERPROFILE\.agents\skills\supernova\orchestrator\SKILL.md"
+Get-ChildItem -Path "$env:USERPROFILE\.codex\skills\supernova\orchestrator\SKILL.md"
 ```
 
 If the file exists, installation is complete. Restart Codex to discover the new skills.
@@ -90,6 +90,7 @@ After installation, invoke skills with `$skill-name` or let Codex match them imp
 | `research` | R&D and technology evaluation |
 | `search` | Live web search and CVE lookup |
 | `shadcn-ui` | Add, design, or customize UI components |
+| `lifecycle` | **Strategy:** SDLC phase planning and execution |
 | `plan` | **Project Manager:** Agile sprint planning and ticket creation |
 | `system` | **Architect:** System design and data modeling |
 | `context` | **Staff Engineer:** Codebase onboarding and dependency mapping |
@@ -101,7 +102,7 @@ The clone contains everything Supernova needs:
 
 | Directory | Purpose |
 |-----------|---------|
-| `skills/` | 14 agent skills (orchestrator, builder, guard, etc.) |
+| `skills/` | 15 agent skills (orchestrator, builder, guard, etc.) |
 | `commands/` | `/nova` unified command entry point |
 | `assets/` | PRD and task-list templates for plan-writer |
 | `hooks/` | Git hook configs for security scanning |
@@ -126,7 +127,7 @@ Disable individual skills via `~/.codex/config.toml`:
 
 ```toml
 [[skills.config]]
-path = "~/.agents/skills/supernova/research/SKILL.md"
+path = "~/.codex/skills/supernova/research/SKILL.md"
 enabled = false
 ```
 
@@ -144,12 +145,12 @@ Symlinks ensure Codex picks up changes. Restart Codex to reload skills.
 
 **macOS / Linux:**
 ```bash
-rm ~/.agents/skills/supernova
+rm ~/.codex/skills/supernova
 rm -rf ~/.codex/supernova
 ```
 
 **Windows:**
 ```powershell
-Remove-Item "$env:USERPROFILE\.agents\skills\supernova" -Recurse
+Remove-Item "$env:USERPROFILE\.codex\skills\supernova" -Recurse
 Remove-Item "$env:USERPROFILE\.codex\supernova" -Recurse
 ```

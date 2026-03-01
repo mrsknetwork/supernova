@@ -26,7 +26,26 @@ New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.cursor\skills"
 cmd /c mklink /J "$env:USERPROFILE\.cursor\skills\supernova" "$env:USERPROFILE\.cursor\plugins\supernova\skills"
 ```
 
-### Step 3 — Create the commands symlink
+### Step 3 — Configure Local Skills MCP
+
+Cursor strictly requires an MCP server to load local skills. 
+
+1. Edit your `mcp.json` located at `~/.cursor/mcp.json` (Global) or `.cursor/mcp.json` (Project).
+2. Add a local skills MCP server configuration pointing to your skills directory.
+
+Example `mcp.json` addition:
+```json
+{
+  "mcpServers": {
+    "supernova-skills": {
+      "command": "npx",
+      "args": ["-y", "@smithery/cli@latest", "run", "@joshuajaco/local-skills-mcp", "--config", "{\"directories\":[\"<absolute_path_to_cursor_skills_supernova>\"]}"]
+    }
+  }
+}
+```
+
+### Step 4 — Create the commands symlink
 
 Cursor discovers custom commands in `~/.cursor/commands/`. Link the Supernova `/nova` command.
 
@@ -42,7 +61,7 @@ New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.cursor\commands"
 Copy-Item "$env:USERPROFILE\.cursor\plugins\supernova\commands\nova.md" "$env:USERPROFILE\.cursor\commands\nova.md"
 ```
 
-### Step 4 — Verify installation
+### Step 5 — Verify installation
 
 Confirm skills are accessible.
 
@@ -100,6 +119,7 @@ After installation, the following skills become available:
 | `research` | R&D and technology evaluation |
 | `search` | Live web search and CVE lookup |
 | `shadcn-ui` | Add, design, or customize UI components |
+| `lifecycle` | **Strategy:** SDLC phase planning and execution |
 | `plan` | **Project Manager:** Agile sprint planning and ticket creation |
 | `system` | **Architect:** System design and data modeling |
 | `context` | **Staff Engineer:** Codebase onboarding and dependency mapping |
@@ -111,7 +131,7 @@ The clone contains everything Supernova needs:
 
 | Directory | Purpose |
 |-----------|---------|
-| `skills/` | 14 agent skills (orchestrator, builder, guard, etc.) |
+| `skills/` | 15 agent skills (orchestrator, builder, guard, etc.) |
 | `commands/` | `/nova` unified command entry point |
 | `assets/` | PRD and task-list templates for plan-writer |
 | `hooks/` | Git hook configs for security scanning |

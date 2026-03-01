@@ -23,14 +23,14 @@ This makes Supernova available across all your codebases.
 
    **macOS / Linux:**
    ```bash
-   mkdir -p ~/.agent/skills
-   ln -s ~/.antigravity/supernova/skills ~/.agent/skills/supernova
+   mkdir -p ~/.gemini/antigravity/skills
+   ln -s ~/.antigravity/supernova/skills ~/.gemini/antigravity/skills/supernova
    ```
 
    **Windows (PowerShell):**
    ```powershell
-   New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.agent\skills"
-   cmd /c mklink /J "$env:USERPROFILE\.agent\skills\supernova" "$env:USERPROFILE\.antigravity\supernova\skills"
+   New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.gemini\antigravity\skills"
+   cmd /c mklink /J "$env:USERPROFILE\.gemini\antigravity\skills\supernova" "$env:USERPROFILE\.antigravity\supernova\skills"
    ```
 
 3. **Create the workflows symlink:**
@@ -38,14 +38,14 @@ This makes Supernova available across all your codebases.
 
    **macOS / Linux:**
    ```bash
-   mkdir -p ~/.agent/workflows
-   ln -s ~/.antigravity/supernova/commands ~/.agent/workflows/
+   mkdir -p ~/.gemini/antigravity/workflows
+   ln -s ~/.antigravity/supernova/commands ~/.gemini/antigravity/workflows/
    ```
 
    **Windows (PowerShell):**
    ```powershell
-   New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.agent\workflows"
-   cmd /c mklink /J "$env:USERPROFILE\.agent\workflows\" "$env:USERPROFILE\.antigravity\supernova\commands"
+   New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.gemini\antigravity\workflows"
+   cmd /c mklink /J "$env:USERPROFILE\.gemini\antigravity\workflows\" "$env:USERPROFILE\.antigravity\supernova\commands"
    ```
 
 ### Project Installation (Codebase-Level)
@@ -80,6 +80,7 @@ After installation, the following skills are available:
 | `research` | R&D and technology evaluation |
 | `search` | Live web search and CVE lookup |
 | `shadcn-ui` | Add, design, or customize UI components |
+| `lifecycle` | **Strategy:** SDLC phase planning and execution |
 | `plan` | **Project Manager:** Agile sprint planning and ticket creation |
 | `system` | **Architect:** System design and data modeling |
 | `context` | **Staff Engineer:** Codebase onboarding and dependency mapping |
@@ -91,7 +92,7 @@ The clone contains everything Supernova needs:
 
 | Directory | Purpose |
 |-----------|---------|
-| `skills/` | 14 agent skills (orchestrator, builder, guard, etc.) |
+| `skills/` | 15 agent skills (orchestrator, builder, guard, etc.) |
 | `commands/` | `/nova` unified command entry point |
 | `assets/` | PRD and task-list templates for plan-writer |
 | `hooks/` | Git hook configs for security scanning |
@@ -112,14 +113,14 @@ Check the symlinks are working.
 
 **macOS / Linux:**
 ```bash
-ls -la ~/.agent/skills/supernova
-ls -la ~/.agent/workflows/supernova
+ls -la ~/.gemini/antigravity/skills/supernova
+ls -la ~/.gemini/antigravity/workflows/supernova
 ```
 
 **Windows (PowerShell):**
 ```powershell
-Get-ChildItem -Path "$env:USERPROFILE\.agent\skills\supernova"
-Get-ChildItem -Path "$env:USERPROFILE\.agent\workflows\supernova"
+Get-ChildItem -Path "$env:USERPROFILE\.gemini\antigravity\skills\supernova"
+Get-ChildItem -Path "$env:USERPROFILE\.gemini\antigravity\workflows\supernova"
 ```
 
 ## Updating
@@ -132,7 +133,7 @@ cd ~/.antigravity/supernova && git pull
 ## Uninstalling
 
 ```bash
-rm ~/.agent/skills/supernova
-rm ~/.agent/workflows/supernova
+rm ~/.gemini/antigravity/skills/supernova
+rm ~/.gemini/antigravity/workflows/supernova
 ```
 Optionally delete the clone: `rm -rf ~/.antigravity/supernova`

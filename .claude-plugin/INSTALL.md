@@ -7,7 +7,7 @@
 ### Step 1 — Clone the repository
 
 ```bash
-git clone https://github.com/mrsknetwork/supernova.git ~/.claude/plugins/supernova
+git clone https://github.com/mrsknetwork/supernova.git ~/.supernova
 ```
 
 ### Step 2 — Create the skills symlink
@@ -17,13 +17,13 @@ Claude Code discovers skills in `~/.claude/skills/`. Symlink the Supernova skill
 **macOS / Linux:**
 ```bash
 mkdir -p ~/.claude/skills
-ln -sf ~/.claude/plugins/supernova/skills ~/.claude/skills/supernova
+ln -sf ~/.supernova/skills ~/.claude/skills/supernova
 ```
 
 **Windows (PowerShell):**
 ```powershell
 New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.claude\skills"
-cmd /c mklink /J "$env:USERPROFILE\.claude\skills\supernova" "$env:USERPROFILE\.claude\plugins\supernova\skills"
+cmd /c mklink /J "$env:USERPROFILE\.claude\skills\supernova" "$env:USERPROFILE\.supernova\skills"
 ```
 
 ### Step 3 — Create the commands symlink
@@ -33,13 +33,13 @@ Claude Code discovers slash commands in `~/.claude/commands/`. Symlink the Super
 **macOS / Linux:**
 ```bash
 mkdir -p ~/.claude/commands
-ln -sf ~/.claude/plugins/supernova/commands/nova.md ~/.claude/commands/nova.md
+ln -sf ~/.supernova/commands/nova.md ~/.claude/commands/nova.md
 ```
 
 **Windows (PowerShell):**
 ```powershell
 New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.claude\commands"
-Copy-Item "$env:USERPROFILE\.claude\plugins\supernova\commands\nova.md" "$env:USERPROFILE\.claude\commands\nova.md"
+Copy-Item "$env:USERPROFILE\.supernova\commands\nova.md" "$env:USERPROFILE\.claude\commands\nova.md"
 ```
 
 ### Step 4 — Verify installation
@@ -68,14 +68,13 @@ If both files exist, installation is complete.
 
 Clone into your project root so your team gets Supernova automatically:
 ```bash
-git clone https://github.com/mrsknetwork/supernova.git .claude/plugins/supernova
-```
+# Clone into your project
+git clone https://github.com/mrsknetwork/supernova.git ./supernova-plugin
 
-Claude Code automatically discovers plugins in `.claude-plugin/` directories. Since the Supernova repo includes `.claude-plugin/plugin.json`, skills are loaded when the project is opened.
-
-Alternatively, use `--add-dir`:
-```bash
-claude --add-dir /path/to/supernova
+# Copy skills into Claude's project-level discovery path
+mkdir -p .claude/skills .claude/commands
+cp -r ./supernova-plugin/skills .claude/skills/supernova
+cp ./supernova-plugin/commands/nova.md .claude/commands/nova.md
 ```
 
 ### Option B — Global (User-Level)
@@ -100,6 +99,7 @@ After installation, skills are invoked as `supernova:<skill-name>`:
 | `research` | R&D and technology evaluation |
 | `search` | Live web search and CVE lookup |
 | `shadcn-ui` | Add, design, or customize UI components |
+| `lifecycle` | **Strategy:** SDLC phase planning and execution |
 | `plan` | **Project Manager:** Agile sprint planning and ticket creation |
 | `system` | **Architect:** System design and data modeling |
 | `context` | **Staff Engineer:** Codebase onboarding and dependency mapping |
@@ -111,7 +111,7 @@ The clone contains everything Supernova needs:
 
 | Directory | Purpose |
 |-----------|---------|
-| `skills/` | 14 agent skills (orchestrator, builder, guard, etc.) |
+| `skills/` | 15 agent skills (orchestrator, builder, guard, etc.) |
 | `commands/` | `/nova` unified command entry point |
 | `assets/` | PRD and task-list templates for plan-writer |
 | `hooks/` | Git hook configs for security scanning |
@@ -134,7 +134,7 @@ The clone contains everything Supernova needs:
 ## Updating
 
 ```bash
-cd ~/.claude/plugins/supernova && git pull
+cd ~/.supernova && git pull
 ```
 
 Symlinks ensure Claude Code picks up changes immediately.
@@ -145,12 +145,12 @@ Symlinks ensure Claude Code picks up changes immediately.
 ```bash
 rm ~/.claude/skills/supernova
 rm ~/.claude/commands/nova.md
-rm -rf ~/.claude/plugins/supernova
+rm -rf ~/.supernova
 ```
 
 **Windows:**
 ```powershell
 Remove-Item "$env:USERPROFILE\.claude\skills\supernova" -Recurse
 Remove-Item "$env:USERPROFILE\.claude\commands\nova.md"
-Remove-Item "$env:USERPROFILE\.claude\plugins\supernova" -Recurse
+Remove-Item "$env:USERPROFILE\.supernova" -Recurse
 ```
