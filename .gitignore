@@ -41,9 +41,3 @@ yarn-error.log*
 # OS
 desktop.ini
 ehthumbs.db
-
-# Supernova runtime
-.supernova/cache/
-.agents/
-.agents/workflows/
-.agents/skills/
