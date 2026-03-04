@@ -6,9 +6,8 @@ We provide security updates for the following versions of Supernova:
 
 | Version | Supported |
 | ------- | --------- |
-| 2.0.x   | Yes       |
-| 1.0.x   | No        |
-| < 1.0   | No        |
+| 1.0.3   | Yes       |
+| < 1.0.3 | No        |
 
 ## Reporting a Vulnerability
 

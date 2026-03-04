@@ -2,7 +2,7 @@
     "name": "supernova",
     "displayName": "Supernova",
     "description": "Agent Skills for AI-Powered Development. 27 domain-specialized skills: backend (FastAPI), frontend (Next.js/Tailwind/Shadcn), database (PostgreSQL), auth (Clerk/OAuth), payments (Stripe), testing, state management, migrations, file storage, email, monitoring, AI integration, DevOps, security, and more.",
-    "version": "2.0.0",
+    "version": "1.0.3",
     "author": {
         "name": "Kamesh",
         "url": "https://github.com/mrsknetwork"

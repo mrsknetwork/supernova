@@ -2,7 +2,7 @@
 
 All notable changes to Supernova are documented here.
 
-## v2.0.0
+## v1.0.3
 
 ### Added
 - **12 new skills**: `payments`, `auth-provider`, `migrations`, `file-storage`, `email`, `monitoring`, `ai-integration`, `onboarding`, `business-logic`, `state-management`, `testing`, `report`

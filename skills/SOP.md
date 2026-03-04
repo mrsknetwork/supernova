@@ -55,7 +55,7 @@ description: "Trigger phrases and core purpose. Be specific, not generic."
 ```json
 {
   "skill_name": "skill-name",
-  "version": "2.0.0",
+  "version": "1.0.3",
   "evals": [
     {
       "id": "unique-scenario-id",
