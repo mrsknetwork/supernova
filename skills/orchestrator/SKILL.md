@@ -1,271 +1,94 @@
 ---
 name: orchestrator
-description: "Unified entry point. Analyzes request, determines mode (turbo/standard/audit), routes to appropriate workflow. Replaces context-agent, design-agent, plan-writer, architect-agent."
-license: MIT
-metadata:
-  version: "1.0.2"
-  sdlc_aware: true
-  replaces: ["context-agent", "design-agent", "plan-writer", "architect-agent"]
-  modes: ["turbo", "standard", "audit"]
-argument-hint: "[request]"
-disable-model-invocation: false
-user-invocable: true
-context: fork
-agent: general-purpose
-allowed-tools: Read Glob Grep Bash(git:*) Task
+description: The entry-point coordinator for complex multi-domain builds. Classifies user intent, selects appropriate domain skills, enforces phase gates, and manages the overall build workflow. Use this skill whenever a user's request spans multiple technical domains (e.g., "build a SaaS app") or when coordinating output from multiple other skills. Always route through orchestrator before executing any domain work.
 ---
 
-# Orchestrator
+# Orchestrator Skill
 
-**Purpose:** Single entry point for all Supernova workflows. Analyzes scope, determines appropriate ceremony level, and routes to specialized agents.
+## Purpose
+The orchestrator is the air traffic controller of the Supernova system. It exists to solve a specific problem: vibe-coders ask for outcomes ("I want a user login system") without understanding what that entails. The orchestrator's job is to translate that intent into an ordered, coordinated sequence of domain skill activations - and to act as a hard gate preventing execution until prerequisites are met.
 
-**Token Optimizations:**
-- Shared context across phases (no re-scanning)
-- Single invocation for think+plan+route
-- Mode-appropriate ceremony level
+## Progressive Disclosure
+- Load `references/skill-matrix.md` (when available) for the full skill-to-domain routing table.
 
----
+## SOP: Orchestration Workflow
 
-## Step 1: SDLC Phase Classification
+### Step 1 - Intent Classification
+Receive the user's request and classify it along two axes:
 
-Every request must first be classified into one of two routing categories:
-- **build_loop**: requests involving writing, modifying, or deleting code
-- **lifecycle_loop**: requests involving any of the 12 lifecycle phases
+**Complexity:**
+- `simple`: A single domain is affected (e.g., "fix this SQL query", "style this button").
+- `compound`: Multiple domains are affected (e.g., "add a checkout flow" = DB + API + Frontend + Security).
+- `full-build`: Greenfield application (requires plan -> all domains -> devops -> infra).
 
-### Branching Logic
-```
-IF build_loop -> continue to Step 2 (mode detection, unchanged)
-IF lifecycle_loop -> route to supernova:lifecycle, STOP
-```
+**User Type (infer from language and context):**
+- `technical`: Uses precise terminology, references files, provides stack context.
+- `non-technical`: Describes the idea, not the implementation. May not know what a "schema" is.
 
-*Note on ambiguous requests:* Default to build_loop, note phase in context.
+Adjust communication style accordingly. For non-technical users, avoid jargon in routing explanations.
 
-### Phase-to-Route Mapping Table
-| Phase Name | Sub-Phase Triggers | Route |
+### Step 2 - Prerequisite Gate (Hard Rule)
+Before dispatching any domain skill, check:
+
+- [ ] Has the `plan` skill been invoked and produced a checklist? If not, invoke it first.
+- [ ] Is the tech stack confirmed? If not, the `plan` skill must resolve it.
+- [ ] Is there a database schema for this feature? If the feature touches data, `db` skill runs before `backend`.
+- [ ] Is authentication required? `security` skill must define the auth strategy before `api` skill builds endpoints.
+
+Do not skip this gate. An executor without a plan is how projects get rebuilt from scratch.
+
+### Step 3 - Domain Skill Routing
+
+Use this matrix to determine which skills apply:
+
+| User Intent Signals | Skills Invoked | Order |
 |---|---|---|
-| framing | validate idea, market fit | supernova:lifecycle |
-| strategy | PRD, roadmap, risk | supernova:lifecycle |
-| architecture | ADR, system design | supernova:lifecycle |
-| ux | wireframe, user flow | supernova:lifecycle |
-| api | API contract, REST | supernova:lifecycle |
-| database | schema design, ER diagram | supernova:lifecycle |
-| infrastructure | VPC, Terraform | supernova:lifecycle |
-| security | threat model, SOC2 | supernova:lifecycle |
-| testing | unit tests, integration | Step 2 -> builder |
-| ci-cd | pipelines, actions | Step 2 -> ship |
-| deployment | releasing to prod | Step 2 -> ship |
-| post-launch | metrics, retention | supernova:lifecycle |
-| go-to-market | pricing, launch plan | supernova:lifecycle |
-| scaling | sharding, reliability | supernova:lifecycle |
-| governance | technical debt | supernova:lifecycle |
+| "Build a new app / full stack" | plan, system-architecture, db, backend, api, frontend, ui-ux, security, devops | Sequential per phase |
+| "I need an API endpoint / backend feature" | plan, db (if schema change), backend, api | Sequential |
+| "I need a UI component / page" | plan, ui-ux (if new flow), frontend | Sequential |
+| "I need a database / schema design" | plan, db | Sequential |
+| "Review / audit the codebase" | audit | Standalone |
+| "Write documentation for X" | docs | Standalone |
+| "I want a deployment setup" | devops, infra | Sequential |
+| "Summarize / report on status" | report | Standalone |
 
----
+When a request is `compound`, fan out to multiple domain skills but respect the dependency order:
+`db` must precede `backend`, `backend` + `api` must precede `frontend`.
 
-## Step 2: Mode Detection (Build Loop Only)
+### Step 4 - Dispatch Log
+After routing is decided, output a brief dispatch plan so the user understands what will happen:
 
-Auto-detect based on scope analysis:
-
-| Mode | Criteria | Token Budget |
-|------|----------|--------------|
-| **Turbo** | 1-3 files, simple change, no new deps | Minimal |
-| **Standard** | 3-10 files, new feature, new patterns | Moderate |
-| **Audit** | 10+ files, security-sensitive, architecture change | Full |
-
-### Detection Logic
-
+**Format:**
 ```
-IF files_affected <= 3 AND complexity == "low" AND no_new_deps:
-    MODE = turbo
-ELSE IF files_affected <= 10 AND complexity == "medium":
-    MODE = standard
-ELSE:
-    MODE = audit
+Routing Plan for: [User Request]
+User Type: [technical / non-technical]
+Complexity: [simple / compound / full-build]
+
+Dispatch Order:
+1. plan - Define requirements and checklist
+2. db - Design schema for [entities]
+3. backend - Implement service and repository layers
+4. api - Define [REST/GraphQL] endpoints
+5. frontend - Build [components described]
+6. security - Apply [auth/auth checks]
 ```
 
-### Complexity Assessment
-To evaluate the `complexity` variable above:
-- **Low**: Minor tweaks, bug fixes in existing logic, simple refactors, documentation updates.
-- **Medium**: Adding new endpoint/component logic following existing patterns, moderate data model changes.
-- **High**: Architectural shifts, integrating new third-party services, major security implication changes, or establishing new patterns.
+### Step 5 - Error Recovery Protocol
+If a domain skill fails or produces incomplete output, the orchestrator must:
 
----
+1. Identify the failed step in the dispatch log.
+2. Determine if the failure is a blocker for downstream skills (it usually is).
+3. Re-invoke the failed skill with additional context before proceeding.
+4. Never silently skip a step and continue.
 
-## Turbo Mode Flow
+### Step 6 - Progress Tracking
+After each domain skill completes, append its status to the dispatch log:
 
-**For:** Bug fixes, refactors, small additions (1-3 files)
-
-1. **Analyze** (30 seconds)
-   - Parse request
-   - Identify affected files
-   - Check if fits turbo criteria
-
-2. **Skip Design**
-   - No design document
-   - Brief mental model only
-
-3. **Route Directly**
-   - Dispatch to builder with turbo flag
-   - Inline execution, no subagents
-
-**Output:** Direct execution, ~70% token savings
-
----
-
-## Standard Mode Flow
-
-**For:** New features, moderate changes (3-10 files)
-
-1. **Analyze** (1-2 minutes)
-   - Parse request
-   - Scan existing codebase patterns
-   - Identify integration points
-
-2. **Brief Design** (1-2 questions max)
-   - One clarifying question if needed
-   - 2-3 sentence design summary
-   - No formal document
-
-3. **Create Task List**
-   - 3-7 bite-sized tasks
-   - Each task: 1 file, 5-10 minutes
-   - RED-GREEN-REFACTOR per task
-
-4. **Route to Build Agent**
-   - Single subagent execution
-   - Basic review built-in
-
-**Output:** `docs/.turbo/design.md`, task list, ~40% token savings
-
----
-
-## Audit Mode Flow
-
-**For:** Complex features, security-critical, architecture changes (10+ files)
-
-1. **Deep Analysis** (2-3 minutes)
-   - Full codebase scan
-   - Dependency mapping
-   - Constraint identification
-
-2. **Socratic Design** (as needed)
-   - Explore 2-3 approaches
-   - Discuss trade-offs
-   - Validate assumptions
-
-3. **Architecture Review**
-   - Pattern recommendations
-   - Anti-pattern warnings
-   - ADR if significant decision
-
-4. **Detailed Planning**
-   - 5-15 tasks
-   - Exact file paths
-   - Test strategy per task
-
-5. **Multi-Agent Pipeline**
-   - Sequential subagent execution
-   - Dedicated reviewers
-   - Security scan
-
-**Output:** `docs/adr/`, detailed plan, full quality gates
-
----
-
-## Lifecycle Loop Flow
-
-1. **Classify Phase**
-   - Classify the specific SDLC phase
-2. **Snapshot Context**
-   - Pass context snapshot with: sdlc_phase, user goal, codebase context
-3. **Route**
-   - Route to supernova:lifecycle
-
-*Note: orchestrator does not produce lifecycle deliverables itself*
-
-### Context Packet Snapshot
-The following JSON structure is passed to ALL downstream skills at routing:
-```json
-{
-  "sdlc_phase": "...",
-  "mode": "...",
-  "request_summary": "...",
-  "files_affected": [],
-  "complexity_signals": {},
-  "git_context": "..."
-}
+```
+1. [x] plan - Checklist produced (8 tasks)
+2. [x] db - `users` and `sessions` tables migrated
+3. [/] backend - UserRepository complete, AuthService in progress
+4. [ ] api - Pending backend
 ```
 
----
-
-## Quick Reference
-
-### Lifecycle Examples
-```
-"write a PRD for the auth system"
-"should we use microservices or monolith"
-"design the database schema for users and orders"
-"design the REST API contract for the payments service"
-"threat model the authentication flow"
-"metric framework for post-launch"
-"structure our technical debt management plan"
-```
-
-### Turbo Examples
-```
-"Fix the typo in README"
-"Add console.log for debugging"
-"Rename variable x to userCount"
-"Fix off-by-one error in loop"
-```
-
-### Standard Examples
-```
-"Add email validation to signup"
-"Create user profile component"
-"Add pagination to list view"
-```
-
-### Audit Examples
-```
-"Implement OAuth authentication"
-"Add payment processing"
-"Refactor database layer"
-"Create plugin system"
-```
-
----
-
-## Integration
-
-**Routes to:**
-- `supernova:lifecycle` (lifecycle phase entry)
-- `builder` (turbo/standard)
-- `guard` (security check)
-- Full pipeline (audit mode)
-
-**Invocation Note:**
-- Claude Code hooks do not currently support SessionStart events. `orchestrator` must be manually invoked by the user at the start of a session (e.g., using `/nova`) or implicitly triggered by commands relating to orchestration or context gathering.
-
-**Required Context:**
-- Current git status
-- Existing file patterns
-- User's intent
-
----
-
-## Templates
-
-- **Task list schema:** see `assets/TASK-LIST-TEMPLATE.json` for structured task planning
-
----
-
-## Rules
-
-1. **Classify SDLC phase first - always before any other analysis**
-2. **Route lifecycle requests immediately - do not handle in orchestrator**
-3. **Always analyze first** - Never assume mode
-4. **Default to turbo** - When in doubt, start minimal
-5. **Escalate if needed** - Turbo can become standard mid-flight
-6. **One orchestration per request** - Don't nest orchestrators
-7. **Preserve context** - Pass accumulated context to next agent
-
+This log is the source of truth for what has been done and what is next.

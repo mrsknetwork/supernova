@@ -1,8 +1,8 @@
 {
-  "version": "1.0.2",
+  "version": "2.0.0",
   "sdlc_aware": true,
-  "name": "supernova-simplified",
-  "description": "Simplified Supernova with tiered execution modes",
+  "name": "supernova",
+  "description": "Agent Skills for AI-Powered Development — 27 domain-specialized skills for production apps",
   "default_mode": "auto",
   "modes": {
     "turbo": {
@@ -65,7 +65,15 @@
       "oauth",
       "database",
       "core",
-      "critical"
+      "critical",
+      "stripe",
+      "subscription",
+      "webhook",
+      "monitoring",
+      "sentry",
+      "rag",
+      "migration",
+      "schema"
     ],
     "file_thresholds": {
       "turbo_max": 3,
@@ -90,7 +98,11 @@
       "password",
       "secret",
       "token",
-      "credential"
+      "credential",
+      "stripe-key",
+      "resend-key",
+      "clerk-key",
+      "sentry-dsn"
     ]
   },
   "optimization": {
@@ -102,7 +114,7 @@
   },
   "sdlc_routing": {
     "lifecycle_loop_skill": "supernova:lifecycle",
-    "build_loop_skill": "supernova:builder",
+    "build_loop_skill": "supernova:executor",
     "default_loop": "auto",
     "ambiguous_request_default": "build_loop",
     "phase_classification_required": true
@@ -131,42 +143,109 @@
         "governance"
       ]
     },
-    "builder": {
+    "plan": {
       "enabled": true,
       "priority": 1
     },
-    "guard": {
+    "executor": {
       "enabled": true,
-      "priority": 2,
-      "hooks": [
-        "pre-write",
-        "pre-execute",
-        "pre-delete"
-      ]
+      "priority": 2
     },
-    "modify": {
+    "parallel": {
       "enabled": true,
       "priority": 3
     },
-    "ship": {
+    "backend": {
       "enabled": true,
-      "priority": 4
+      "priority": 10
     },
-    "plan": {
+    "api": {
       "enabled": true,
-      "priority": 5
+      "priority": 11
     },
-    "system": {
+    "db": {
       "enabled": true,
-      "priority": 6
+      "priority": 12
     },
-    "context": {
+    "frontend": {
       "enabled": true,
-      "priority": 7
+      "priority": 20
+    },
+    "ui-ux": {
+      "enabled": true,
+      "priority": 21
+    },
+    "system-architecture": {
+      "enabled": true,
+      "priority": 30
+    },
+    "security": {
+      "enabled": true,
+      "priority": 31
+    },
+    "devops": {
+      "enabled": true,
+      "priority": 32
     },
     "infra": {
       "enabled": true,
-      "priority": 8
+      "priority": 33
+    },
+    "audit": {
+      "enabled": true,
+      "priority": 40
+    },
+    "report": {
+      "enabled": true,
+      "priority": 41
+    },
+    "docs": {
+      "enabled": true,
+      "priority": 42
+    },
+    "testing": {
+      "enabled": true,
+      "priority": 50
+    },
+    "business-logic": {
+      "enabled": true,
+      "priority": 51
+    },
+    "state-management": {
+      "enabled": true,
+      "priority": 52
+    },
+    "payments": {
+      "enabled": true,
+      "priority": 60
+    },
+    "auth-provider": {
+      "enabled": true,
+      "priority": 61
+    },
+    "migrations": {
+      "enabled": true,
+      "priority": 62
+    },
+    "file-storage": {
+      "enabled": true,
+      "priority": 63
+    },
+    "email": {
+      "enabled": true,
+      "priority": 64
+    },
+    "monitoring": {
+      "enabled": true,
+      "priority": 65
+    },
+    "ai-integration": {
+      "enabled": true,
+      "priority": 66
+    },
+    "onboarding": {
+      "enabled": true,
+      "priority": 70
     }
   },
   "commands": {
@@ -177,15 +256,25 @@
         "turbo",
         "standard",
         "audit",
-        "review",
+        "plan",
+        "build",
+        "test",
         "guard",
         "debug",
         "modify",
         "ship",
-        "plan",
-        "system",
-        "context",
-        "infra"
+        "review",
+        "backend",
+        "frontend",
+        "api",
+        "db",
+        "security",
+        "devops",
+        "infra",
+        "payments",
+        "auth",
+        "email",
+        "monitoring"
       ]
     }
   }

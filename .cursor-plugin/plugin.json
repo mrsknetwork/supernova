@@ -1,8 +1,8 @@
 {
     "name": "supernova",
     "displayName": "Supernova",
-    "description": "AI Dev Team Orchestrator. Core skills: orchestrator, lifecycle, builder, guard, modify, ship. Specialist skills: debugger, docs, research, search.",
-    "version": "1.0.2",
+    "description": "Agent Skills for AI-Powered Development. 27 domain-specialized skills: backend (FastAPI), frontend (Next.js/Tailwind/Shadcn), database (PostgreSQL), auth (Clerk/OAuth), payments (Stripe), testing, state management, migrations, file storage, email, monitoring, AI integration, DevOps, security, and more.",
+    "version": "2.0.0",
     "author": {
         "name": "Kamesh",
         "url": "https://github.com/mrsknetwork"
@@ -14,13 +14,16 @@
     },
     "license": "MIT",
     "keywords": [
-        "orchestrator",
-        "multi-agent",
-        "dev-team",
-        "skills",
-        "tdd",
-        "security",
-        "code-review"
+        "agent-skills",
+        "ai-development",
+        "vibe-coding",
+        "fastapi",
+        "nextjs",
+        "stripe",
+        "auth",
+        "testing",
+        "devops",
+        "production"
     ],
     "skills": "./skills/",
     "commands": "./commands/",

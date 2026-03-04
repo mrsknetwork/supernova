@@ -78,25 +78,62 @@ Follow the AI-Assisted Installation steps above. This makes Supernova available 
 
 ## Available Skills
 
-After installation, the following skills become available:
+After installation, 27 skills become available:
 
+**Foundation**
 | Skill | Description |
 |-------|-------------|
-| `orchestrator` | Entry point — analyzes scope, detects mode, routes workflow |
-| `builder` | Implementation with integrated TDD and review |
-| `guard` | Security scanning with LLM-specific protections |
-| `modify` | Safe delete, rename, bulk update with rollback |
-| `ship` | Verify, commit, and finish work |
-| `debugger` | 4-phase systematic debugging |
-| `docs` | Technical and non-technical documentation |
-| `research` | R&D and technology evaluation |
-| `search` | Live web search and CVE lookup |
-| `shadcn-ui` | Add, design, or customize UI components |
-| `lifecycle` | **Strategy:** SDLC phase planning and execution |
-| `plan` | **Project Manager:** Agile sprint planning and ticket creation |
-| `system` | **Architect:** System design and data modeling |
-| `context` | **Staff Engineer:** Codebase onboarding and dependency mapping |
-| `infra` | **DevOps Engineer:** Docker, CI/CD pipelines, configuration |
+| `plan` | Agile sprint planning, roadmap, ticket breakdown |
+| `orchestrator` | Scope analysis, complexity detection, workflow routing |
+| `executor` | Task execution with built-in verification gates |
+| `parallel` | Multi-agent parallel execution coordination |
+
+**Backend**
+| Skill | Description |
+|-------|-------------|
+| `backend` | Python / FastAPI architecture, DI, middleware |
+| `api` | REST vs GraphQL API design by complexity |
+| `db` | PostgreSQL schema, indexing, query optimization |
+
+**Frontend**
+| Skill | Description |
+|-------|-------------|
+| `frontend` | Next.js 14 / TypeScript / Tailwind / Shadcn/ui |
+| `ui-ux` | Design systems, responsive layouts, accessibility |
+
+**Infrastructure & Security**
+| Skill | Description |
+|-------|-------------|
+| `system-architecture` | System design, ADRs, data modeling |
+| `security` | JWT auth, RBAC, OWASP patterns, secret scanning |
+| `devops` | Docker, CI/CD, GitHub Actions, deployments |
+| `infra` | Terraform, Kubernetes, cloud provisioning |
+
+**Operations**
+| Skill | Description |
+|-------|-------------|
+| `audit` | Codebase health, dependency review, tech debt |
+| `report` | Engineering reports, sprint summaries |
+| `docs` | Technical docs, API docs, changelogs |
+
+**Quality & Logic**
+| Skill | Description |
+|-------|-------------|
+| `testing` | Unit (pytest/Vitest), integration, E2E (Playwright) |
+| `business-logic` | Domain modeling, rule engines, state machines |
+| `state-management` | Zustand, React Query, Redis, sessions |
+
+**Integrations**
+| Skill | Description |
+|-------|-------------|
+| `payments` | Stripe checkout, subscriptions, webhooks, refunds |
+| `auth-provider` | Clerk, NextAuth.js OAuth, Supabase Auth |
+| `migrations` | Alembic workflow, rollback SOP, concurrent indexes |
+| `file-storage` | S3 / R2 uploads, pre-signed URLs, CDN delivery |
+| `email` | Resend transactional email, Celery async sending |
+| `monitoring` | Sentry, structlog, Prometheus, health checks |
+| `ai-integration` | LLM APIs, streaming SSE, tool use, RAG |
+| `onboarding` | Day-0 project scaffold, Docker Compose, first commit |
 
 ## What's Included
 
@@ -104,7 +141,7 @@ The clone contains everything Supernova needs:
 
 | Directory | Purpose |
 |-----------|---------|
-| `skills/` | 15 agent skills (orchestrator, builder, guard, etc.) |
+| `skills/` | 27 agent skills with SOPs, evals, and references |
 | `commands/` | `/nova` unified command entry point |
 | `assets/` | PRD and task-list templates for plan-writer |
 | `hooks/` | Git hook configs for security scanning |
