@@ -1,7 +1,6 @@
 ---
 name: frontend-design
 description: Create distinctive, production-grade frontend interfaces with high design quality using structured SOPs and comprehensive UI/UX guidelines. Use this skill when the user asks to build web components, pages, artifacts, posters, or applications (examples include websites, landing pages, dashboards, React components, HTML/CSS layouts, or when styling/beautifying any web UI). Also use when the user asks about typography, padding, spacing, sizing, layout systems, font pairing, color palettes, animation/motion design, responsive design, or UI component patterns. Generates creative, polished code and UI design that avoids generic AI aesthetics. Trigger this skill for any frontend design, UI/UX design, web design, component creation, or design system task.
-license: Complete terms in LICENSE.txt
 ---
 
 This skill guides creation of distinctive, production-grade frontend interfaces. It provides structured SOPs, design systems, and comprehensive guidelines to produce premium results - not generic "AI slop." Implement real working code with exceptional attention to aesthetic details and creative choices.
